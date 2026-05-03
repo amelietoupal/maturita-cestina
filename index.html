@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maturita — Český jazyk & literatura</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:      #1c1612;
+    --paper:    #f4ede0;
+    --cream:    #faf6ef;
+    --accent:   #b85c38;
+    --accent2:  #7a5c3a;
+    --muted:    #9a8a78;
+    --line:     #ddd0bc;
+    --card-bg:  #fdf9f4;
+    --shadow:   rgba(28,22,18,0.07);
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–paper);
+color: var(–ink);
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: 17px;
+line-height: 1.6;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* ── GRAIN TEXTURE ── */
+body::after {
+content: ‘’;
+position: fixed; inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘250’ height=‘250’%3E%3Cfilter id=‘g’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.8’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘250’ height=‘250’ filter=‘url(%23g)’ opacity=‘0.035’/%3E%3C/svg%3E”);
+pointer-events: none;
+z-index: 1000;
+}
+
+/* ── HEADER ── */
+header {
+border-bottom: 1.5px solid var(–ink);
+padding: 2.5rem 3rem 2rem;
+position: relative;
+overflow: hidden;
+}
+
+header::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, var(–accent), var(–accent2), var(–accent));
+}
+
+.header-top {
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 1rem;
+}
+
+.header-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–accent);
+margin-bottom: 0.5rem;
+}
+
+h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.2rem, 6vw, 4rem);
+font-weight: 900;
+line-height: 1.0;
+letter-spacing: -0.02em;
+}
+
+h1 em {
+font-style: italic;
+color: var(–accent);
+}
+
+.header-meta {
+text-align: right;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+color: var(–muted);
+letter-spacing: 0.1em;
+line-height: 2;
+margin-top: 0.5rem;
+}
+
+#topic-count {
+font-size: 2rem;
+font-family: ‘Playfair Display’, serif;
+font-weight: 700;
+color: var(–accent);
+display: block;
+line-height: 1;
+}
+
+/* ── LAYOUT ── */
+.layout {
+display: grid;
+grid-template-columns: 1fr 360px;
+gap: 0;
+min-height: calc(100vh - 140px);
+}
+
+/* ── TOPICS LIST ── */
+.topics-section {
+padding: 2.5rem 3rem;
+border-right: 1px solid var(–line);
+}
+
+.section-title {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 1.5rem;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+
+.section-title::after {
+content: ‘’;
+flex: 1;
+height: 1px;
+background: var(–line);
+}
+
+/* ── TOPIC CARDS ── */
+#topics-list {
+display: flex;
+flex-direction: column;
+gap: 0;
+}
+
+.topic-item {
+border-bottom: 1px solid var(–line);
+animation: fadeSlide 0.4s ease forwards;
+opacity: 0;
+transform: translateY(8px);
+}
+
+@keyframes fadeSlide {
+to { opacity: 1; transform: translateY(0); }
+}
+
+.topic-header {
+display: flex;
+align-items: center;
+gap: 1rem;
+padding: 1.1rem 0;
+cursor: pointer;
+transition: background 0.15s;
+border-radius: 2px;
+padding-left: 0.25rem;
+margin-left: -0.25rem;
+}
+
+.topic-header:hover { background: rgba(184,92,56,0.04); }
+
+.topic-num {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+color: var(–muted);
+letter-spacing: 0.08em;
+min-width: 2rem;
+}
+
+.topic-name {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.15rem;
+font-weight: 400;
+flex: 1;
+transition: color 0.2s;
+}
+
+.topic-header:hover .topic-name { color: var(–accent); }
+
+.topic-arrow {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+color: var(–muted);
+transition: transform 0.25s, color 0.2s;
+user-select: none;
+}
+
+.topic-item.open .topic-arrow {
+transform: rotate(90deg);
+color: var(–accent);
+}
+
+.topic-preview {
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+
+.topic-item.open .topic-preview {
+max-height: 650px;
+}
+
+.preview-inner {
+padding-bottom: 1.25rem;
+}
+
+.preview-url {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.6rem;
+color: var(–muted);
+margin-bottom: 0.75rem;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+padding-left: 3rem;
+}
+
+iframe.topic-frame {
+width: 100%;
+height: 520px;
+border: 1px solid var(–line);
+border-radius: 2px;
+background: white;
+display: block;
+}
+
+.preview-actions {
+display: flex;
+gap: 0.75rem;
+padding: 0.6rem 0 0 3rem;
+}
+
+.btn-open {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–accent);
+text-decoration: none;
+border: 1px solid var(–accent);
+padding: 0.3rem 0.75rem;
+transition: background 0.15s, color 0.15s;
+cursor: pointer;
+background: transparent;
+}
+
+.btn-open:hover { background: var(–accent); color: white; }
+
+.btn-delete {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–muted);
+border: 1px solid var(–line);
+padding: 0.3rem 0.75rem;
+background: transparent;
+cursor: pointer;
+transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-delete:hover { border-color: #c0392b; color: #c0392b; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+padding: 4rem 0;
+text-align: center;
+color: var(–muted);
+}
+
+.empty-state .big {
+font-family: ‘Playfair Display’, serif;
+font-size: 3rem;
+font-style: italic;
+opacity: 0.3;
+display: block;
+margin-bottom: 1rem;
+}
+
+.empty-state p {
+font-size: 0.85rem;
+font-family: ‘DM Mono’, monospace;
+letter-spacing: 0.05em;
+}
+
+/* ── SIDEBAR FORM ── */
+aside {
+padding: 2.5rem 2rem;
+background: var(–card-bg);
+position: sticky;
+top: 0;
+height: 100vh;
+overflow-y: auto;
+display: flex;
+flex-direction: column;
+gap: 1.75rem;
+}
+
+aside h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.3rem;
+font-weight: 400;
+line-height: 1.2;
+}
+
+aside h2 em { font-style: italic; color: var(–accent); }
+
+.form-field {
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+}
+
+.form-field label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.6rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–muted);
+}
+
+.form-field input {
+background: transparent;
+border: none;
+border-bottom: 1.5px solid var(–line);
+padding: 0.5rem 0;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1rem;
+color: var(–ink);
+outline: none;
+width: 100%;
+transition: border-color 0.2s;
+}
+
+.form-field input:focus { border-color: var(–accent); }
+.form-field input::placeholder { color: var(–muted); opacity: 0.6; }
+
+.btn-add {
+width: 100%;
+background: var(–ink);
+color: var(–paper);
+border: none;
+padding: 0.85rem 1rem;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+cursor: pointer;
+transition: background 0.2s;
+}
+
+.btn-add:hover { background: var(–accent); }
+
+.form-hint {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.58rem;
+color: var(–muted);
+line-height: 1.7;
+letter-spacing: 0.04em;
+}
+
+.form-hint a {
+color: var(–accent);
+text-decoration: none;
+}
+
+.divider {
+height: 1px;
+background: var(–line);
+}
+
+.sidebar-footer {
+margin-top: auto;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.55rem;
+color: var(–muted);
+opacity: 0.6;
+letter-spacing: 0.08em;
+line-height: 2;
+}
+
+/* ── TOAST ── */
+.toast {
+position: fixed;
+bottom: 2rem;
+left: 50%;
+transform: translateX(-50%) translateY(100px);
+background: var(–ink);
+color: var(–paper);
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.1em;
+padding: 0.7rem 1.5rem;
+border-radius: 2px;
+transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+z-index: 999;
+white-space: nowrap;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+header { padding: 1.5rem 1.25rem 1.25rem; }
+h1 { font-size: 2rem; }
+.layout { grid-template-columns: 1fr; }
+.topics-section { padding: 1.5rem 1.25rem; border-right: none; }
+aside {
+position: static;
+height: auto;
+border-top: 1px solid var(–line);
+padding: 1.75rem 1.25rem;
+}
+.preview-url { padding-left: 2.5rem; }
+.preview-actions { padding-left: 2.5rem; }
+iframe.topic-frame { height: 400px; }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <div class="header-label">Gymnázium · Maturitní příprava</div>
+      <h1>Český jazyk<br><em>&amp; literatura</em></h1>
+    </div>
+    <div class="header-meta">
+      <span id="topic-count">0</span>
+      TÉMAT CELKEM
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- TOPICS -->
+
+  <section class="topics-section">
+    <div class="section-title">Moje témata</div>
+    <div id="topics-list">
+      <div class="empty-state" id="empty-state">
+        <span class="big">∅</span>
+        <p>Zatím žádná témata.<br>Přidej první vpravo →</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDEBAR -->
+
+  <aside>
+    <div>
+      <h2>Přidat<br><em>nové téma</em></h2>
+    </div>
+
+```
+<div class="form-field">
+  <label>Název tématu</label>
+  <input type="text" id="input-name" placeholder="např. Karel Hynek Mácha — Máj" autocomplete="off" />
+</div>
+
+<div class="form-field">
+  <label>URL odkaz (GitHub Pages)</label>
+  <input type="url" id="input-url" placeholder="https://amelietoupal.github.io/tema-macha.html" autocomplete="off" />
+</div>
+
+<button class="btn-add" onclick="addTopic()">＋ Přidat téma</button>
+
+<div class="form-hint">
+  Nahraj HTML soubor tématu do svého GitHub repozitáře a sem vlož jeho URL adresu.<br><br>
+  Příklad: <a href="#">amelietoupal.github.io/<wbr>tema-macha.html</a>
+</div>
+
+<div class="divider"></div>
+
+<div class="sidebar-footer">
+  Data uložena v localStorage<br>
+  Přežijí zavření prohlížeče<br>
+  ──────────────────<br>
+  amelietoupal.github.io
+</div>
+```
+
+  </aside>
+
+</div>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── DATA ──
+  const STORAGE_KEY = 'maturita-cestina-topics';
+
+  function loadTopics() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveTopics(topics) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(topics));
+  }
+
+  // ── RENDER ──
+  function render() {
+    const topics = loadTopics();
+    const list = document.getElementById('topics-list');
+    const empty = document.getElementById('empty-state');
+    const counter = document.getElementById('topic-count');
+
+    counter.textContent = topics.length;
+
+    if (topics.length === 0) {
+      list.innerHTML = '';
+      list.appendChild(empty);
+      return;
+    }
+
+    list.innerHTML = '';
+
+    topics.forEach((t, i) => {
+      const item = document.createElement('div');
+      item.className = 'topic-item';
+      item.style.animationDelay = (i * 0.04) + 's';
+      item.dataset.index = i;
+
+      item.innerHTML = `
+        <div class="topic-header" onclick="toggleTopic(${i})">
+          <span class="topic-num">${String(i + 1).padStart(2, '0')}</span>
+          <span class="topic-name">${escHtml(t.name)}</span>
+          <span class="topic-arrow">▶</span>
+        </div>
+        <div class="topic-preview" id="preview-${i}">
+          <div class="preview-inner">
+            <div class="preview-url">${escHtml(t.url)}</div>
+            <iframe class="topic-frame" id="frame-${i}" src="" frameborder="0" allowfullscreen loading="lazy" title="${escHtml(t.name)}"></iframe>
+            <div class="preview-actions">
+              <a class="btn-open" href="${escHtml(t.url)}" target="_blank">↗ Otevřít</a>
+              <button class="btn-delete" onclick="deleteTopic(${i}, event)">× Smazat</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      list.appendChild(item);
+    });
+  }
+
+  // ── TOGGLE ──
+  let openIndex = null;
+
+  function toggleTopic(i) {
+    const items = document.querySelectorAll('.topic-item');
+
+    if (openIndex === i) {
+      // close
+      items[i].classList.remove('open');
+      openIndex = null;
+      return;
+    }
+
+    // close previous
+    if (openIndex !== null && items[openIndex]) {
+      items[openIndex].classList.remove('open');
+    }
+
+    // open new & load iframe
+    items[i].classList.add('open');
+    openIndex = i;
+
+    const topics = loadTopics();
+    const frame = document.getElementById('frame-' + i);
+    if (frame && !frame.src) {
+      frame.src = topics[i].url;
+    }
+  }
+
+  // ── ADD ──
+  function addTopic() {
+    const nameEl = document.getElementById('input-name');
+    const urlEl  = document.getElementById('input-url');
+
+    const name = nameEl.value.trim();
+    const url  = urlEl.value.trim();
+
+    if (!name) { showToast('Zadej název tématu.'); nameEl.focus(); return; }
+    if (!url)  { showToast('Zadej URL odkaz.'); urlEl.focus(); return; }
+
+    if (!url.startsWith('http')) {
+      showToast('URL musí začínat http:// nebo https://');
+      urlEl.focus(); return;
+    }
+
+    const topics = loadTopics();
+    topics.push({ name, url, added: new Date().toISOString() });
+    saveTopics(topics);
+    openIndex = null;
+
+    nameEl.value = '';
+    urlEl.value = '';
+    nameEl.focus();
+
+    render();
+    showToast('✓ Téma přidáno: ' + name);
+  }
+
+  // ── DELETE ──
+  function deleteTopic(i, e) {
+    e.stopPropagation();
+    const topics = loadTopics();
+    const name = topics[i].name;
+    topics.splice(i, 1);
+    saveTopics(topics);
+    openIndex = null;
+    render();
+    showToast('Smazáno: ' + name);
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ── UTIL ──
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── ENTER KEY ──
+  document.addEventListener('DOMContentLoaded', () => {
+    render();
+
+    document.getElementById('input-url').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addTopic();
+    });
+    document.getElementById('input-name').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('input-url').focus();
+    });
+  });
+</script>
+
+</body>
+</html>
