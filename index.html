@@ -3,500 +3,817 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maturita — Český jazyk & literatura</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maturita — Český jazyk</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink:      #1c1612;
-    --paper:    #f4ede0;
-    --cream:    #faf6ef;
-    --accent:   #b85c38;
-    --accent2:  #7a5c3a;
-    --muted:    #9a8a78;
-    --line:     #ddd0bc;
-    --card-bg:  #fdf9f4;
-    --shadow:   rgba(28,22,18,0.07);
-  }
+:root {
+  --bg:       #0d0b09;
+  --bg2:      #131109;
+  --bg3:      #1a1612;
+  --surface:  #1f1b16;
+  --surface2: #252019;
+  --border:   #2e2820;
+  --border2:  #3d3528;
+  --accent:   #c4652a;
+  --accent2:  #e8944a;
+  --gold:     #c9a84c;
+  --text:     #e8ddd0;
+  --text2:    #a8998a;
+  --text3:    #6a5e52;
+  --green:    #4a7c5a;
+  --green2:   #6aad7a;
+}
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
-background: var(–paper);
-color: var(–ink);
-font-family: ‘Cormorant Garamond’, Georgia, serif;
-font-size: 17px;
+background: var(–bg);
+color: var(–text);
+font-family: ‘Crimson Pro’, Georgia, serif;
+font-size: 18px;
 line-height: 1.6;
 min-height: 100vh;
 overflow-x: hidden;
 }
 
-/* ── GRAIN TEXTURE ── */
-body::after {
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(–bg); }
+::-webkit-scrollbar-thumb { background: var(–border2); border-radius: 2px; }
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
 content: ‘’;
 position: fixed; inset: 0;
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘250’ height=‘250’%3E%3Cfilter id=‘g’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.8’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘250’ height=‘250’ filter=‘url(%23g)’ opacity=‘0.035’/%3E%3C/svg%3E”);
-pointer-events: none;
-z-index: 1000;
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘200’ height=‘200’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘200’ height=‘200’ filter=‘url(%23n)’ opacity=‘0.03’/%3E%3C/svg%3E”);
+pointer-events: none; z-index: 9998;
 }
 
-/* ── HEADER ── */
-header {
-border-bottom: 1.5px solid var(–ink);
-padding: 2.5rem 3rem 2rem;
+/* ─── TOP BAR ─── */
+.topbar {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+height: 56px;
+background: rgba(13,11,9,0.92);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border-bottom: 1px solid var(–border);
+display: flex; align-items: center;
+padding: 0 2rem;
+gap: 1.5rem;
+}
+
+.topbar-logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 1rem;
+font-style: italic;
+color: var(–accent2);
+white-space: nowrap;
+letter-spacing: 0.02em;
+}
+
+.topbar-divider { width: 1px; height: 20px; background: var(–border2); flex-shrink: 0; }
+
+.search-wrap {
+flex: 1;
+max-width: 400px;
+position: relative;
+}
+
+.search-wrap svg {
+position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
+width: 14px; height: 14px; opacity: 0.4; pointer-events: none;
+fill: none; stroke: var(–text); stroke-width: 2; stroke-linecap: round;
+}
+
+#search-input {
+width: 100%;
+background: var(–surface);
+border: 1px solid var(–border);
+color: var(–text);
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 0.05em;
+padding: 0.45rem 0.75rem 0.45rem 2.25rem;
+outline: none;
+border-radius: 2px;
+transition: border-color 0.2s, background 0.2s;
+}
+#search-input:focus { border-color: var(–accent); background: var(–surface2); }
+#search-input::placeholder { color: var(–text3); }
+
+.topbar-right {
+margin-left: auto;
+display: flex; align-items: center; gap: 1rem;
+}
+
+.btn-add-top {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+background: var(–accent);
+color: white;
+border: none;
+padding: 0.4rem 1rem;
+cursor: pointer;
+transition: background 0.15s;
+border-radius: 2px;
+white-space: nowrap;
+}
+.btn-add-top:hover { background: var(–accent2); }
+
+/* ─── HERO ─── */
+.hero {
+margin-top: 56px;
+padding: 4rem 3rem 3rem;
+border-bottom: 1px solid var(–border);
 position: relative;
 overflow: hidden;
 }
 
-header::before {
+.hero::after {
 content: ‘’;
 position: absolute;
-top: 0; left: 0; right: 0;
-height: 3px;
-background: linear-gradient(90deg, var(–accent), var(–accent2), var(–accent));
+top: -60px; right: -60px;
+width: 400px; height: 400px;
+background: radial-gradient(circle, rgba(196,101,42,0.07) 0%, transparent 70%);
+pointer-events: none;
 }
 
-.header-top {
-display: flex;
-align-items: flex-start;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 1rem;
-}
-
-.header-label {
+.hero-eyebrow {
 font-family: ‘DM Mono’, monospace;
-font-size: 0.65rem;
-letter-spacing: 0.18em;
+font-size: 0.62rem;
+letter-spacing: 0.22em;
 text-transform: uppercase;
 color: var(–accent);
-margin-bottom: 0.5rem;
+margin-bottom: 1rem;
+display: flex; align-items: center; gap: 0.75rem;
 }
 
-h1 {
+.hero-eyebrow::before {
+content: ‘’;
+width: 28px; height: 1px;
+background: var(–accent);
+display: inline-block;
+}
+
+.hero h1 {
 font-family: ‘Playfair Display’, serif;
-font-size: clamp(2.2rem, 6vw, 4rem);
+font-size: clamp(2.8rem, 7vw, 5.5rem);
 font-weight: 900;
-line-height: 1.0;
+line-height: 0.95;
 letter-spacing: -0.02em;
+margin-bottom: 1.5rem;
 }
 
-h1 em {
-font-style: italic;
-color: var(–accent);
+.hero h1 em { font-style: italic; color: var(–accent2); }
+
+.hero-meta {
+display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
 }
 
-.header-meta {
-text-align: right;
+.stat {
+display: flex; flex-direction: column;
 font-family: ‘DM Mono’, monospace;
-font-size: 0.65rem;
-color: var(–muted);
-letter-spacing: 0.1em;
-line-height: 2;
-margin-top: 0.5rem;
 }
 
-#topic-count {
-font-size: 2rem;
-font-family: ‘Playfair Display’, serif;
-font-weight: 700;
-color: var(–accent);
-display: block;
+.stat-val {
+font-size: 1.8rem;
+font-weight: 500;
+color: var(–accent2);
 line-height: 1;
 }
 
-/* ── LAYOUT ── */
-.layout {
-display: grid;
-grid-template-columns: 1fr 360px;
-gap: 0;
-min-height: calc(100vh - 140px);
+.stat-label {
+font-size: 0.55rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–text3);
+margin-top: 0.2rem;
 }
 
-/* ── TOPICS LIST ── */
-.topics-section {
-padding: 2.5rem 3rem;
-border-right: 1px solid var(–line);
+.stat-divider { width: 1px; height: 36px; background: var(–border2); }
+
+/* PROGRESS BAR */
+.progress-wrap {
+margin-top: 2rem;
+max-width: 600px;
 }
 
-.section-title {
+.progress-label {
+display: flex; justify-content: space-between;
 font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
+font-size: 0.58rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–text3);
+margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+height: 3px;
+background: var(–border);
+border-radius: 2px;
+overflow: hidden;
+}
+
+.progress-fill {
+height: 100%;
+background: linear-gradient(90deg, var(–accent), var(–accent2));
+border-radius: 2px;
+transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+width: 0%;
+}
+
+/* ─── MAIN LAYOUT ─── */
+.main {
+display: grid;
+grid-template-columns: 220px 1fr;
+min-height: calc(100vh - 300px);
+}
+
+/* ─── SIDEBAR FILTERS ─── */
+.sidebar {
+border-right: 1px solid var(–border);
+padding: 2rem 1.25rem;
+position: sticky;
+top: 56px;
+height: calc(100vh - 56px);
+overflow-y: auto;
+}
+
+.sidebar-section { margin-bottom: 2rem; }
+
+.sidebar-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.55rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–text3);
+margin-bottom: 0.75rem;
+padding-bottom: 0.5rem;
+border-bottom: 1px solid var(–border);
+}
+
+.filter-btn {
+display: flex; align-items: center; justify-content: space-between;
+width: 100%;
+background: transparent;
+border: none;
+color: var(–text2);
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.05em;
+padding: 0.45rem 0.5rem;
+cursor: pointer;
+border-radius: 2px;
+transition: background 0.15s, color 0.15s;
+text-align: left;
+margin-bottom: 0.15rem;
+}
+
+.filter-btn:hover { background: var(–surface); color: var(–text); }
+.filter-btn.active { background: var(–surface2); color: var(–accent2); border-left: 2px solid var(–accent); padding-left: calc(0.5rem - 2px); }
+
+.filter-count {
+font-size: 0.55rem;
+background: var(–border);
+color: var(–text3);
+padding: 0.1rem 0.4rem;
+border-radius: 10px;
+min-width: 20px;
+text-align: center;
+}
+
+.filter-btn.active .filter-count { background: var(–accent); color: white; }
+
+/* ─── TOPICS GRID ─── */
+.content {
+padding: 2rem 2.5rem;
+}
+
+.content-header {
+display: flex; align-items: center; justify-content: space-between;
+margin-bottom: 1.5rem;
+flex-wrap: wrap; gap: 1rem;
+}
+
+.content-title {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.6rem;
 letter-spacing: 0.18em;
 text-transform: uppercase;
-color: var(–muted);
-margin-bottom: 1.5rem;
-display: flex;
-align-items: center;
-gap: 0.75rem;
+color: var(–text3);
+display: flex; align-items: center; gap: 0.75rem;
 }
 
-.section-title::after {
+.content-title::after {
 content: ‘’;
-flex: 1;
-height: 1px;
-background: var(–line);
+width: 40px; height: 1px;
+background: var(–border2);
 }
 
-/* ── TOPIC CARDS ── */
-#topics-list {
+.sort-wrap {
+display: flex; gap: 0.5rem;
+}
+
+.sort-btn {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.58rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+background: transparent;
+border: 1px solid var(–border);
+color: var(–text3);
+padding: 0.3rem 0.65rem;
+cursor: pointer;
+border-radius: 2px;
+transition: all 0.15s;
+}
+.sort-btn.active, .sort-btn:hover { border-color: var(–accent); color: var(–accent2); }
+
+/* ─── TOPIC CARDS ─── */
+#topics-grid {
 display: flex;
 flex-direction: column;
 gap: 0;
 }
 
-.topic-item {
-border-bottom: 1px solid var(–line);
-animation: fadeSlide 0.4s ease forwards;
+.topic-card {
+border-bottom: 1px solid var(–border);
+animation: slideIn 0.3s ease forwards;
 opacity: 0;
-transform: translateY(8px);
+transform: translateY(10px);
+position: relative;
 }
 
-@keyframes fadeSlide {
+@keyframes slideIn {
 to { opacity: 1; transform: translateY(0); }
 }
 
-.topic-header {
-display: flex;
+.card-main {
+display: grid;
+grid-template-columns: 3.5rem 1fr auto;
 align-items: center;
 gap: 1rem;
-padding: 1.1rem 0;
+padding: 1.25rem 0.5rem;
 cursor: pointer;
 transition: background 0.15s;
-border-radius: 2px;
-padding-left: 0.25rem;
-margin-left: -0.25rem;
+border-radius: 3px;
+margin: 0 -0.5rem;
 }
 
-.topic-header:hover { background: rgba(184,92,56,0.04); }
+.card-main:hover { background: var(–surface); }
 
-.topic-num {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
-color: var(–muted);
-letter-spacing: 0.08em;
-min-width: 2rem;
-}
-
-.topic-name {
+.card-num {
 font-family: ‘Playfair Display’, serif;
-font-size: 1.15rem;
+font-size: 1.8rem;
 font-weight: 400;
-flex: 1;
+font-style: italic;
+color: var(–border2);
+line-height: 1;
+text-align: right;
 transition: color 0.2s;
 }
 
-.topic-header:hover .topic-name { color: var(–accent); }
+.topic-card:hover .card-num { color: var(–accent); }
 
-.topic-arrow {
+.card-body { min-width: 0; }
+
+.card-category {
 font-family: ‘DM Mono’, monospace;
-font-size: 0.7rem;
-color: var(–muted);
-transition: transform 0.25s, color 0.2s;
-user-select: none;
+font-size: 0.55rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–text3);
+margin-bottom: 0.2rem;
 }
 
-.topic-item.open .topic-arrow {
-transform: rotate(90deg);
-color: var(–accent);
+.card-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.2rem;
+font-weight: 400;
+color: var(–text);
+transition: color 0.2s;
+line-height: 1.3;
 }
 
-.topic-preview {
-max-height: 0;
-overflow: hidden;
-transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
-}
+.topic-card:hover .card-title { color: var(–accent2); }
 
-.topic-item.open .topic-preview {
-max-height: 650px;
-}
-
-.preview-inner {
-padding-bottom: 1.25rem;
-}
-
-.preview-url {
+.card-url {
 font-family: ‘DM Mono’, monospace;
 font-size: 0.6rem;
-color: var(–muted);
-margin-bottom: 0.75rem;
+color: var(–text3);
+margin-top: 0.25rem;
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
-padding-left: 3rem;
+max-width: 400px;
 }
 
-iframe.topic-frame {
-width: 100%;
-height: 520px;
-border: 1px solid var(–line);
-border-radius: 2px;
-background: white;
-display: block;
+.card-actions {
+display: flex; gap: 0.5rem; align-items: center;
+flex-shrink: 0;
 }
 
-.preview-actions {
-display: flex;
-gap: 0.75rem;
-padding: 0.6rem 0 0 3rem;
+.card-done {
+width: 22px; height: 22px;
+border: 1px solid var(–border2);
+border-radius: 50%;
+background: transparent;
+cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+transition: all 0.2s;
+flex-shrink: 0;
 }
 
-.btn-open {
+.card-done svg { width: 10px; height: 10px; fill: none; stroke: var(–text3); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.card-done:hover { border-color: var(–green); }
+.card-done.done { background: var(–green); border-color: var(–green); }
+.card-done.done svg { stroke: white; }
+
+.btn-visit {
 font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
+font-size: 0.6rem;
 letter-spacing: 0.1em;
 text-transform: uppercase;
-color: var(–accent);
-text-decoration: none;
+color: var(–accent2);
+background: transparent;
 border: 1px solid var(–accent);
-padding: 0.3rem 0.75rem;
+padding: 0.35rem 0.85rem;
+text-decoration: none;
+display: inline-flex; align-items: center; gap: 0.4rem;
 transition: background 0.15s, color 0.15s;
-cursor: pointer;
-background: transparent;
+border-radius: 2px;
+white-space: nowrap;
 }
+.btn-visit:hover { background: var(–accent); color: white; }
 
-.btn-open:hover { background: var(–accent); color: white; }
-
-.btn-delete {
+.btn-del {
+background: transparent;
+border: 1px solid var(–border);
+color: var(–text3);
 font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-color: var(–muted);
-border: 1px solid var(–line);
-padding: 0.3rem 0.75rem;
-background: transparent;
+font-size: 0.7rem;
+width: 28px; height: 28px;
+display: flex; align-items: center; justify-content: center;
 cursor: pointer;
-transition: border-color 0.15s, color 0.15s;
+border-radius: 2px;
+transition: all 0.15s;
 }
+.btn-del:hover { border-color: #c0392b; color: #c0392b; }
 
-.btn-delete:hover { border-color: #c0392b; color: #c0392b; }
+/* DONE CARD STYLE */
+.topic-card.is-done .card-title { text-decoration: line-through; opacity: 0.5; }
+.topic-card.is-done .card-num { color: var(–green); opacity: 0.5; }
 
-/* ── EMPTY STATE ── */
-.empty-state {
-padding: 4rem 0;
+/* ─── EMPTY STATE ─── */
+.empty {
+padding: 5rem 2rem;
 text-align: center;
-color: var(–muted);
+color: var(–text3);
 }
 
-.empty-state .big {
+.empty-glyph {
 font-family: ‘Playfair Display’, serif;
-font-size: 3rem;
+font-size: 5rem;
 font-style: italic;
-opacity: 0.3;
+opacity: 0.15;
 display: block;
-margin-bottom: 1rem;
+line-height: 1;
+margin-bottom: 1.5rem;
 }
 
-.empty-state p {
-font-size: 0.85rem;
+.empty p {
 font-family: ‘DM Mono’, monospace;
-letter-spacing: 0.05em;
+font-size: 0.65rem;
+letter-spacing: 0.1em;
+line-height: 2.2;
 }
 
-/* ── SIDEBAR FORM ── */
-aside {
-padding: 2.5rem 2rem;
-background: var(–card-bg);
-position: sticky;
-top: 0;
-height: 100vh;
-overflow-y: auto;
-display: flex;
-flex-direction: column;
-gap: 1.75rem;
+/* ─── MODAL ─── */
+.modal-overlay {
+position: fixed; inset: 0; z-index: 500;
+background: rgba(8,7,5,0.88);
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+display: flex; align-items: center; justify-content: center;
+padding: 1.5rem;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.25s;
 }
 
-aside h2 {
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+background: var(–bg3);
+border: 1px solid var(–border2);
+width: 100%;
+max-width: 520px;
+padding: 2.5rem;
+transform: translateY(20px) scale(0.98);
+transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1);
+box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+.modal-header {
+display: flex; justify-content: space-between; align-items: flex-start;
+margin-bottom: 2rem;
+}
+
+.modal-title {
 font-family: ‘Playfair Display’, serif;
-font-size: 1.3rem;
+font-size: 1.6rem;
 font-weight: 400;
 line-height: 1.2;
 }
+.modal-title em { font-style: italic; color: var(–accent2); }
 
-aside h2 em { font-style: italic; color: var(–accent); }
-
-.form-field {
-display: flex;
-flex-direction: column;
-gap: 0.4rem;
+.modal-close {
+background: transparent; border: 1px solid var(–border);
+color: var(–text3); width: 32px; height: 32px;
+display: flex; align-items: center; justify-content: center;
+cursor: pointer; font-size: 1.1rem; border-radius: 2px;
+transition: all 0.15s; flex-shrink: 0; margin-left: 1rem;
 }
+.modal-close:hover { border-color: var(–accent); color: var(–accent2); }
 
-.form-field label {
+.form-field { margin-bottom: 1.5rem; }
+
+.form-label {
 font-family: ‘DM Mono’, monospace;
-font-size: 0.6rem;
-letter-spacing: 0.15em;
+font-size: 0.58rem;
+letter-spacing: 0.18em;
 text-transform: uppercase;
-color: var(–muted);
+color: var(–text3);
+display: block;
+margin-bottom: 0.5rem;
 }
 
-.form-field input {
-background: transparent;
-border: none;
-border-bottom: 1.5px solid var(–line);
-padding: 0.5rem 0;
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 1rem;
-color: var(–ink);
+.form-input {
+width: 100%;
+background: var(–surface);
+border: 1px solid var(–border2);
+color: var(–text);
+font-family: ‘Crimson Pro’, serif;
+font-size: 1.05rem;
+padding: 0.65rem 0.85rem;
 outline: none;
-width: 100%;
-transition: border-color 0.2s;
+border-radius: 2px;
+transition: border-color 0.2s, background 0.2s;
+-webkit-appearance: none;
+}
+.form-input:focus { border-color: var(–accent); background: var(–surface2); }
+.form-input::placeholder { color: var(–text3); opacity: 0.7; }
+
+select.form-input {
+cursor: pointer;
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%236a5e52’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);
+background-repeat: no-repeat;
+background-position: right 0.85rem center;
+padding-right: 2.5rem;
 }
 
-.form-field input:focus { border-color: var(–accent); }
-.form-field input::placeholder { color: var(–muted); opacity: 0.6; }
+.form-hint-text {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.58rem;
+color: var(–text3);
+margin-top: 0.4rem;
+letter-spacing: 0.04em;
+line-height: 1.7;
+}
 
-.btn-add {
+.btn-submit {
 width: 100%;
-background: var(–ink);
-color: var(–paper);
+background: var(–accent);
+color: white;
 border: none;
-padding: 0.85rem 1rem;
+padding: 0.9rem 1rem;
 font-family: ‘DM Mono’, monospace;
 font-size: 0.65rem;
 letter-spacing: 0.2em;
 text-transform: uppercase;
 cursor: pointer;
 transition: background 0.2s;
+border-radius: 2px;
+margin-top: 0.5rem;
 }
+.btn-submit:hover { background: var(–accent2); }
 
-.btn-add:hover { background: var(–accent); }
-
-.form-hint {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.58rem;
-color: var(–muted);
-line-height: 1.7;
-letter-spacing: 0.04em;
-}
-
-.form-hint a {
-color: var(–accent);
-text-decoration: none;
-}
-
-.divider {
-height: 1px;
-background: var(–line);
-}
-
-.sidebar-footer {
-margin-top: auto;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.55rem;
-color: var(–muted);
-opacity: 0.6;
-letter-spacing: 0.08em;
-line-height: 2;
-}
-
-/* ── TOAST ── */
+/* ─── TOAST ─── */
 .toast {
 position: fixed;
-bottom: 2rem;
-left: 50%;
-transform: translateX(-50%) translateY(100px);
-background: var(–ink);
-color: var(–paper);
+bottom: 2rem; left: 50%;
+transform: translateX(-50%) translateY(80px);
+background: var(–surface2);
+border: 1px solid var(–border2);
+color: var(–text);
 font-family: ‘DM Mono’, monospace;
-font-size: 0.65rem;
+font-size: 0.62rem;
 letter-spacing: 0.1em;
-padding: 0.7rem 1.5rem;
+padding: 0.65rem 1.5rem;
 border-radius: 2px;
-transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-z-index: 999;
+transition: transform 0.4s cubic-bezier(0.34,1.4,0.64,1);
+z-index: 9997;
 white-space: nowrap;
+box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
-
 .toast.show { transform: translateX(-50%) translateY(0); }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-header { padding: 1.5rem 1.25rem 1.25rem; }
-h1 { font-size: 2rem; }
-.layout { grid-template-columns: 1fr; }
-.topics-section { padding: 1.5rem 1.25rem; border-right: none; }
-aside {
-position: static;
-height: auto;
-border-top: 1px solid var(–line);
-padding: 1.75rem 1.25rem;
+/* ─── NO RESULTS ─── */
+.no-results {
+padding: 3rem 1rem;
+text-align: center;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+color: var(–text3);
+letter-spacing: 0.1em;
+display: none;
 }
-.preview-url { padding-left: 2.5rem; }
-.preview-actions { padding-left: 2.5rem; }
-iframe.topic-frame { height: 400px; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+.hero { padding: 3rem 1.5rem 2rem; }
+.main { grid-template-columns: 1fr; }
+.sidebar {
+position: static; height: auto;
+border-right: none; border-bottom: 1px solid var(–border);
+padding: 1rem 1.5rem;
+display: flex; gap: 0.5rem; flex-wrap: wrap;
+overflow-x: auto;
+}
+.sidebar-section { margin-bottom: 0; }
+.sidebar-label { display: none; }
+.filter-btn { white-space: nowrap; }
+.content { padding: 1.5rem; }
+.topbar { padding: 0 1rem; }
+.card-url { display: none; }
+.modal { padding: 1.75rem; }
+}
+
+@media (max-width: 600px) {
+.hero h1 { font-size: 2.5rem; }
+.card-main { grid-template-columns: 2.5rem 1fr auto; gap: 0.75rem; }
+.card-num { font-size: 1.3rem; }
+.card-title { font-size: 1rem; }
+.btn-visit span { display: none; }
 }
 </style>
 
 </head>
 <body>
 
-<header>
-  <div class="header-top">
-    <div>
-      <div class="header-label">Gymnázium · Maturitní příprava</div>
-      <h1>Český jazyk<br><em>&amp; literatura</em></h1>
+<!-- TOP BAR -->
+
+<div class="topbar">
+  <div class="topbar-logo">Maturita ČJ</div>
+  <div class="topbar-divider"></div>
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="search-input" placeholder="Hledat téma…" autocomplete="off" oninput="filterTopics()" />
+  </div>
+  <div class="topbar-right">
+    <button class="btn-add-top" onclick="openModal()">＋ Přidat téma</button>
+  </div>
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="hero-eyebrow">Gymnázium · Maturitní příprava 2025</div>
+  <h1>Český jazyk<br><em>&amp; literatura</em></h1>
+  <div class="hero-meta">
+    <div class="stat">
+      <span class="stat-val" id="count-total">0</span>
+      <span class="stat-label">Témat celkem</span>
     </div>
-    <div class="header-meta">
-      <span id="topic-count">0</span>
-      TÉMAT CELKEM
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-val" id="count-done">0</span>
+      <span class="stat-label">Hotovo</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-val" id="count-left">0</span>
+      <span class="stat-label">Zbývá</span>
     </div>
   </div>
-</header>
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Postup přípravy</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+</div>
 
-<div class="layout">
+<!-- MAIN -->
+
+<div class="main">
+
+  <!-- SIDEBAR FILTERS -->
+
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Kategorie</div>
+      <button class="filter-btn active" onclick="setFilter('vse', this)" data-filter="vse">
+        Vše <span class="filter-count" id="fc-vse">0</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter('literatura', this)" data-filter="literatura">
+        Literatura <span class="filter-count" id="fc-literatura">0</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter('jazyk', this)" data-filter="jazyk">
+        Jazyk <span class="filter-count" id="fc-jazyk">0</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter('sloh', this)" data-filter="sloh">
+        Sloh <span class="filter-count" id="fc-sloh">0</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter('ostatni', this)" data-filter="ostatni">
+        Ostatní <span class="filter-count" id="fc-ostatni">0</span>
+      </button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Stav</div>
+      <button class="filter-btn" onclick="setFilter('hotovo', this)" data-filter="hotovo">
+        ✓ Hotovo <span class="filter-count" id="fc-hotovo">0</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter('zbývá', this)" data-filter="zbývá">
+        ○ Zbývá <span class="filter-count" id="fc-zbývá">0</span>
+      </button>
+    </div>
+  </aside>
 
   <!-- TOPICS -->
 
-  <section class="topics-section">
-    <div class="section-title">Moje témata</div>
-    <div id="topics-list">
-      <div class="empty-state" id="empty-state">
-        <span class="big">∅</span>
-        <p>Zatím žádná témata.<br>Přidej první vpravo →</p>
+  <div class="content">
+    <div class="content-header">
+      <div class="content-title">Moje témata</div>
+      <div class="sort-wrap">
+        <button class="sort-btn active" onclick="setSort('added', this)">Přidáno</button>
+        <button class="sort-btn" onclick="setSort('abc', this)">A–Z</button>
+        <button class="sort-btn" onclick="setSort('cat', this)">Kategorie</button>
       </div>
     </div>
-  </section>
 
-  <!-- SIDEBAR -->
+```
+<div id="topics-grid"></div>
+<div class="no-results" id="no-results">Žádná témata nenalezena.</div>
+<div class="empty" id="empty-state" style="display:none">
+  <span class="empty-glyph">∅</span>
+  <p>Zatím žádná témata.<br>Klikni na + Přidat téma<br>a začni svou přípravu.</p>
+</div>
+```
 
-  <aside>
-    <div>
-      <h2>Přidat<br><em>nové téma</em></h2>
+  </div>
+</div>
+
+<!-- MODAL -->
+
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Přidat<br><em>nové téma</em></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
 
 ```
 <div class="form-field">
-  <label>Název tématu</label>
-  <input type="text" id="input-name" placeholder="např. Karel Hynek Mácha — Máj" autocomplete="off" />
+  <label class="form-label">Název tématu *</label>
+  <input class="form-input" type="text" id="f-name" placeholder="např. Karel Hynek Mácha — Máj" autocomplete="off" />
 </div>
 
 <div class="form-field">
-  <label>URL odkaz (GitHub Pages)</label>
-  <input type="url" id="input-url" placeholder="https://amelietoupal.github.io/tema-macha.html" autocomplete="off" />
+  <label class="form-label">Kategorie</label>
+  <select class="form-input" id="f-cat">
+    <option value="literatura">Literatura</option>
+    <option value="jazyk">Jazyk</option>
+    <option value="sloh">Sloh</option>
+    <option value="ostatni">Ostatní</option>
+  </select>
 </div>
 
-<button class="btn-add" onclick="addTopic()">＋ Přidat téma</button>
-
-<div class="form-hint">
-  Nahraj HTML soubor tématu do svého GitHub repozitáře a sem vlož jeho URL adresu.<br><br>
-  Příklad: <a href="#">amelietoupal.github.io/<wbr>tema-macha.html</a>
+<div class="form-field">
+  <label class="form-label">URL odkaz *</label>
+  <input class="form-input" type="url" id="f-url"
+    placeholder="https://amelietoupal.github.io/maturita-cestina/macha.html"
+    autocomplete="off" autocorrect="off" autocapitalize="none" />
+  <div class="form-hint-text">
+    Nahraj HTML soubor do repozitáře maturita-cestina,<br>
+    pak vlož jeho GitHub Pages URL.
+  </div>
 </div>
 
-<div class="divider"></div>
-
-<div class="sidebar-footer">
-  Data uložena v localStorage<br>
-  Přežijí zavření prohlížeče<br>
-  ──────────────────<br>
-  amelietoupal.github.io
-</div>
+<button class="btn-submit" onclick="addTopic()">＋ Přidat téma</button>
 ```
 
-  </aside>
-
+  </div>
 </div>
 
 <!-- TOAST -->
@@ -504,157 +821,201 @@ iframe.topic-frame { height: 400px; }
 <div class="toast" id="toast"></div>
 
 <script>
-  // ── DATA ──
-  const STORAGE_KEY = 'maturita-cestina-topics';
+const KEY = 'maturita-v3';
+let currentFilter = 'vse';
+let currentSort = 'added';
 
-  function loadTopics() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-    catch { return []; }
-  }
+const CATS = { literatura: 'Literatura', jazyk: 'Jazyk', sloh: 'Sloh', ostatni: 'Ostatní' };
 
-  function saveTopics(topics) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(topics));
-  }
+// ── DATA ──
+function load() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || []; }
+  catch { return []; }
+}
+function save(t) { localStorage.setItem(KEY, JSON.stringify(t)); }
 
-  // ── RENDER ──
-  function render() {
-    const topics = loadTopics();
-    const list = document.getElementById('topics-list');
-    const empty = document.getElementById('empty-state');
-    const counter = document.getElementById('topic-count');
+// ── RENDER ──
+function render() {
+  const all = load();
+  const grid = document.getElementById('topics-grid');
+  const empty = document.getElementById('empty-state');
+  const noRes = document.getElementById('no-results');
+  const query = document.getElementById('search-input').value.trim().toLowerCase();
 
-    counter.textContent = topics.length;
+  // stats
+  const done = all.filter(t => t.done).length;
+  document.getElementById('count-total').textContent = all.length;
+  document.getElementById('count-done').textContent = done;
+  document.getElementById('count-left').textContent = all.length - done;
+  const pct = all.length ? Math.round(done / all.length * 100) : 0;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
 
-    if (topics.length === 0) {
-      list.innerHTML = '';
-      list.appendChild(empty);
-      return;
-    }
-
-    list.innerHTML = '';
-
-    topics.forEach((t, i) => {
-      const item = document.createElement('div');
-      item.className = 'topic-item';
-      item.style.animationDelay = (i * 0.04) + 's';
-      item.dataset.index = i;
-
-      item.innerHTML = `
-        <div class="topic-header" onclick="toggleTopic(${i})">
-          <span class="topic-num">${String(i + 1).padStart(2, '0')}</span>
-          <span class="topic-name">${escHtml(t.name)}</span>
-          <span class="topic-arrow">▶</span>
-        </div>
-        <div class="topic-preview" id="preview-${i}">
-          <div class="preview-inner">
-            <div class="preview-url">${escHtml(t.url)}</div>
-            <iframe class="topic-frame" id="frame-${i}" src="" frameborder="0" allowfullscreen loading="lazy" title="${escHtml(t.name)}"></iframe>
-            <div class="preview-actions">
-              <a class="btn-open" href="${escHtml(t.url)}" target="_blank">↗ Otevřít</a>
-              <button class="btn-delete" onclick="deleteTopic(${i}, event)">× Smazat</button>
-            </div>
-          </div>
-        </div>
-      `;
-
-      list.appendChild(item);
-    });
-  }
-
-  // ── TOGGLE ──
-  let openIndex = null;
-
-  function toggleTopic(i) {
-    const items = document.querySelectorAll('.topic-item');
-
-    if (openIndex === i) {
-      // close
-      items[i].classList.remove('open');
-      openIndex = null;
-      return;
-    }
-
-    // close previous
-    if (openIndex !== null && items[openIndex]) {
-      items[openIndex].classList.remove('open');
-    }
-
-    // open new & load iframe
-    items[i].classList.add('open');
-    openIndex = i;
-
-    const topics = loadTopics();
-    const frame = document.getElementById('frame-' + i);
-    if (frame && !frame.src) {
-      frame.src = topics[i].url;
-    }
-  }
-
-  // ── ADD ──
-  function addTopic() {
-    const nameEl = document.getElementById('input-name');
-    const urlEl  = document.getElementById('input-url');
-
-    const name = nameEl.value.trim();
-    const url  = urlEl.value.trim();
-
-    if (!name) { showToast('Zadej název tématu.'); nameEl.focus(); return; }
-    if (!url)  { showToast('Zadej URL odkaz.'); urlEl.focus(); return; }
-
-    if (!url.startsWith('http')) {
-      showToast('URL musí začínat http:// nebo https://');
-      urlEl.focus(); return;
-    }
-
-    const topics = loadTopics();
-    topics.push({ name, url, added: new Date().toISOString() });
-    saveTopics(topics);
-    openIndex = null;
-
-    nameEl.value = '';
-    urlEl.value = '';
-    nameEl.focus();
-
-    render();
-    showToast('✓ Téma přidáno: ' + name);
-  }
-
-  // ── DELETE ──
-  function deleteTopic(i, e) {
-    e.stopPropagation();
-    const topics = loadTopics();
-    const name = topics[i].name;
-    topics.splice(i, 1);
-    saveTopics(topics);
-    openIndex = null;
-    render();
-    showToast('Smazáno: ' + name);
-  }
-
-  // ── TOAST ──
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2800);
-  }
-
-  // ── UTIL ──
-  function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  // ── ENTER KEY ──
-  document.addEventListener('DOMContentLoaded', () => {
-    render();
-
-    document.getElementById('input-url').addEventListener('keydown', e => {
-      if (e.key === 'Enter') addTopic();
-    });
-    document.getElementById('input-name').addEventListener('keydown', e => {
-      if (e.key === 'Enter') document.getElementById('input-url').focus();
-    });
+  // filter counts
+  const cats = ['literatura','jazyk','sloh','ostatni'];
+  document.getElementById('fc-vse').textContent = all.length;
+  cats.forEach(c => {
+    const el = document.getElementById('fc-' + c);
+    if (el) el.textContent = all.filter(t => t.cat === c).length;
   });
+  document.getElementById('fc-hotovo').textContent = done;
+  document.getElementById('fc-zbývá').textContent = all.length - done;
+
+  // filter
+  let filtered = all.map((t, i) => ({...t, _i: i}));
+  if (currentFilter === 'hotovo') filtered = filtered.filter(t => t.done);
+  else if (currentFilter === 'zbývá') filtered = filtered.filter(t => !t.done);
+  else if (currentFilter !== 'vse') filtered = filtered.filter(t => t.cat === currentFilter);
+  if (query) filtered = filtered.filter(t => t.name.toLowerCase().includes(query));
+
+  // sort
+  if (currentSort === 'abc') filtered.sort((a,b) => a.name.localeCompare(b.name, 'cs'));
+  else if (currentSort === 'cat') filtered.sort((a,b) => a.cat.localeCompare(b.cat));
+
+  // render
+  if (all.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    noRes.style.display = 'none';
+    return;
+  }
+
+  empty.style.display = 'none';
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+
+  grid.innerHTML = '';
+  filtered.forEach((t, displayIdx) => {
+    const card = document.createElement('div');
+    card.className = 'topic-card' + (t.done ? ' is-done' : '');
+    card.style.animationDelay = (displayIdx * 0.035) + 's';
+
+    card.innerHTML = `
+      <div class="card-main">
+        <div class="card-num">${String(displayIdx + 1).padStart(2,'0')}</div>
+        <div class="card-body">
+          <div class="card-category">${CATS[t.cat] || t.cat}</div>
+          <div class="card-title">${esc(t.name)}</div>
+          <div class="card-url">${esc(t.url)}</div>
+        </div>
+        <div class="card-actions">
+          <button class="card-done ${t.done ? 'done' : ''}" onclick="toggleDone(${t._i})" title="${t.done ? 'Označit jako nesplněno' : 'Označit jako hotovo'}">
+            <svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg>
+          </button>
+          <a class="btn-visit" href="${esc(t.url)}" target="_blank" rel="noopener">
+            ↗ <span>Otevřít</span>
+          </a>
+          <button class="btn-del" onclick="delTopic(${t._i})" title="Smazat">×</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ── TOGGLE DONE ──
+function toggleDone(i) {
+  const topics = load();
+  topics[i].done = !topics[i].done;
+  save(topics);
+  render();
+  toast(topics[i].done ? '✓ Označeno jako hotovo' : '○ Označeno jako nesplněno');
+}
+
+// ── DELETE ──
+function delTopic(i) {
+  const topics = load();
+  const name = topics[i].name;
+  topics.splice(i, 1);
+  save(topics);
+  render();
+  toast('Smazáno: ' + name);
+}
+
+// ── ADD ──
+function addTopic() {
+  const name = document.getElementById('f-name').value.trim();
+  const url  = document.getElementById('f-url').value.trim();
+  const cat  = document.getElementById('f-cat').value;
+
+  if (!name) { toast('Zadej název tématu.'); document.getElementById('f-name').focus(); return; }
+  if (!url)  { toast('Zadej URL odkaz.'); document.getElementById('f-url').focus(); return; }
+  if (!url.startsWith('http')) { toast('URL musí začínat https://'); document.getElementById('f-url').focus(); return; }
+
+  const topics = load();
+  topics.push({ name, url, cat, done: false, added: Date.now() });
+  save(topics);
+
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-url').value = '';
+  closeModal();
+  render();
+  toast('✓ Přidáno: ' + name);
+}
+
+// ── FILTER ──
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ── SORT ──
+function setSort(s, btn) {
+  currentSort = s;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ── SEARCH ──
+function filterTopics() { render(); }
+
+// ── MODAL ──
+function openModal() {
+  document.getElementById('modal').classList.add('open');
+  setTimeout(() => document.getElementById('f-name').focus(), 300);
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+
+// ── TOAST ──
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+// ── UTILS ──
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── KEYBOARD ──
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('search-input').focus();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  render();
+  document.getElementById('f-name').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('f-url').focus();
+  });
+  document.getElementById('f-url').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addTopic();
+  });
+});
 </script>
 
 </body>
