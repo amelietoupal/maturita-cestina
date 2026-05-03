@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Literatura přelomu 19.–20. století</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --surface: #1a1814;
+    --border: #2e2b25;
+    --text: #e8e0d0;
+    --muted: #8a8070;
+    --imp: #d4855a;   /* impresionismus – teplá oranžová */
+    --sym: #7ab3c4;   /* symbolismus – modrá */
+    --dek: #b07ab0;   /* dekadence – fialová */
+    --civ: #85b87a;   /* civilismus – zelená */
+    --bur: #c4a85a;   /* buřiči – zlatá */
+    --accent: #e8c87a;
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 300;
+line-height: 1.7;
+min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+padding: 3rem 2rem 2rem;
+text-align: center;
+border-bottom: 1px solid var(–border);
+position: relative;
+overflow: hidden;
+}
+header::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: radial-gradient(ellipse at 50% 0%, rgba(212,133,90,.15) 0%, transparent 70%);
+pointer-events: none;
+}
+header .eyebrow {
+font-size: .75rem;
+letter-spacing: .25em;
+text-transform: uppercase;
+color: var(–accent);
+margin-bottom: .75rem;
+}
+header h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2rem, 5vw, 3.5rem);
+font-weight: 700;
+line-height: 1.15;
+color: #fff;
+}
+header .sub {
+margin-top: .5rem;
+color: var(–muted);
+font-size: .95rem;
+letter-spacing: .08em;
+}
+.legend {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: .5rem 1.2rem;
+margin-top: 1.5rem;
+font-size: .8rem;
+}
+.legend span {
+display: flex;
+align-items: center;
+gap: .4rem;
+color: var(–muted);
+}
+.legend span::before {
+content: ‘’;
+width: 10px; height: 10px;
+border-radius: 50%;
+background: var(–c);
+flex-shrink: 0;
+}
+
+/* ── TABS ── */
+.tabs {
+display: flex;
+overflow-x: auto;
+gap: 0;
+border-bottom: 1px solid var(–border);
+padding: 0 1rem;
+scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+padding: .75rem 1.25rem;
+font-size: .82rem;
+font-weight: 500;
+letter-spacing: .06em;
+text-transform: uppercase;
+color: var(–muted);
+cursor: pointer;
+border-bottom: 2px solid transparent;
+white-space: nowrap;
+transition: color .2s, border-color .2s;
+background: none;
+border-top: none;
+border-left: none;
+border-right: none;
+}
+.tab:hover { color: var(–text); }
+.tab.active { color: var(–accent); border-bottom-color: var(–accent); }
+
+/* ── MAIN ── */
+main { max-width: 900px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+.panel { display: none; }
+.panel.active { display: block; animation: fadeIn .35s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ── SECTION HEADINGS ── */
+.section-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.6rem;
+margin-bottom: 1.5rem;
+color: #fff;
+}
+.section-title em {
+font-style: italic;
+color: var(–accent);
+}
+
+/* ── SMER CARD ── */
+.smer {
+background: var(–surface);
+border: 1px solid var(–border);
+border-left: 4px solid var(–c, var(–border));
+border-radius: 4px;
+margin-bottom: 1.25rem;
+overflow: hidden;
+}
+.smer-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1rem 1.25rem;
+cursor: pointer;
+user-select: none;
+}
+.smer-header:hover { background: rgba(255,255,255,.03); }
+.smer-name {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.15rem;
+color: var(–c, var(–text));
+}
+.smer-tag {
+font-size: .72rem;
+letter-spacing: .12em;
+text-transform: uppercase;
+color: var(–c, var(–muted));
+opacity: .8;
+margin-left: .75rem;
+}
+.arrow {
+font-size: .8rem;
+color: var(–muted);
+transition: transform .25s;
+}
+.smer-body {
+display: none;
+padding: 0 1.25rem 1.25rem;
+border-top: 1px solid var(–border);
+}
+.smer.open .smer-body { display: block; }
+.smer.open .arrow { transform: rotate(180deg); }
+
+/* ── DEFINITION ── */
+.def {
+background: rgba(255,255,255,.04);
+border-radius: 4px;
+padding: .75rem 1rem;
+margin: .75rem 0;
+font-size: .9rem;
+}
+.def strong { color: var(–c, var(–accent)); }
+
+/* ── ZNAKY LIST ── */
+.znaky {
+list-style: none;
+margin: .75rem 0;
+}
+.znaky li {
+padding: .3rem 0 .3rem 1.25rem;
+position: relative;
+font-size: .9rem;
+color: var(–text);
+}
+.znaky li::before {
+content: ‘→’;
+position: absolute;
+left: 0;
+color: var(–c, var(–muted));
+font-size: .8rem;
+}
+
+/* ── AUTHOR CHIPS ── */
+.authors { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.author-chip {
+background: rgba(255,255,255,.05);
+border: 1px solid var(–border);
+border-radius: 99px;
+padding: .3rem .85rem;
+font-size: .8rem;
+cursor: pointer;
+transition: background .2s, border-color .2s;
+line-height: 1.3;
+}
+.author-chip span { display: block; color: var(–muted); font-size: .72rem; }
+.author-chip:hover {
+background: rgba(255,255,255,.09);
+border-color: var(–c, var(–accent));
+}
+
+/* ── QUOTE BOX ── */
+.quote {
+border-left: 3px solid var(–c, var(–muted));
+padding: .6rem 1rem;
+margin: 1rem 0;
+font-style: italic;
+color: var(–muted);
+font-size: .88rem;
+}
+
+/* ── MATURITNÍ PŘEHLED ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media(max-width:600px) { .grid-2 { grid-template-columns: 1fr; } }
+
+.card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 1.1rem;
+}
+.card h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1rem;
+margin-bottom: .5rem;
+color: var(–accent);
+}
+.card p, .card li { font-size: .85rem; color: var(–text); }
+.card ul { list-style: none; }
+.card ul li::before { content: ’· ’; color: var(–muted); }
+
+/* ── POJMY TABLE ── */
+.pojmy-grid { display: grid; gap: .75rem; }
+.pojem {
+display: grid;
+grid-template-columns: 180px 1fr;
+gap: .5rem 1rem;
+align-items: start;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: .75rem 1rem;
+}
+@media(max-width:550px) { .pojem { grid-template-columns: 1fr; } }
+.pojem-term {
+font-family: ‘DM Mono’, monospace;
+font-size: .82rem;
+color: var(–accent);
+padding-top: .1rem;
+}
+.pojem-def { font-size: .88rem; color: var(–text); }
+.pojem-ex { font-size: .78rem; color: var(–muted); margin-top: .2rem; }
+
+/* ── AUTOR DETAIL ── */
+.autor-detail {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+margin-bottom: 1rem;
+padding: 1.1rem 1.25rem;
+}
+.autor-detail h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.1rem;
+color: #fff;
+margin-bottom: .2rem;
+}
+.autor-detail .meta {
+font-size: .78rem;
+color: var(–muted);
+margin-bottom: .6rem;
+letter-spacing: .06em;
+}
+.dila { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
+.dilo-tag {
+background: rgba(255,255,255,.06);
+border-radius: 3px;
+padding: .2rem .6rem;
+font-size: .78rem;
+font-style: italic;
+color: var(–text);
+}
+
+/* ── STRIPE COLORS ── */
+.imp { –c: var(–imp); }
+.sym { –c: var(–sym); }
+.dek { –c: var(–dek); }
+.civ { –c: var(–civ); }
+.bur { –c: var(–bur); }
+
+/* ── DIVIDER ── */
+.divider {
+height: 1px;
+background: var(–border);
+margin: 1.5rem 0;
+}
+
+/* ── FILOZOFIE BANNER ── */
+.filo-banner {
+background: linear-gradient(135deg, rgba(212,133,90,.12) 0%, rgba(122,179,196,.08) 100%);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 1.25rem 1.5rem;
+margin-bottom: 1.5rem;
+}
+.filo-banner h3 { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(–muted); margin-bottom: .75rem; }
+
+.filo-item { margin-bottom: .6rem; }
+.filo-item strong { color: var(–accent); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(–bg); }
+::-webkit-scrollbar-thumb { background: var(–border); border-radius: 3px; }
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Česká literatura — maturitní příprava</div>
+  <h1>Literatura přelomu<br>19.–20. století</h1>
+  <div class="sub">Literární moderna 1890–1914 · fin de siècle</div>
+  <div class="legend">
+    <span style="--c: var(--imp)">Impresionismus</span>
+    <span style="--c: var(--sym)">Symbolismus</span>
+    <span style="--c: var(--dek)">Dekadence</span>
+    <span style="--c: var(--civ)">Civilismus</span>
+    <span style="--c: var(--bur)">Anarchistič. buřiči</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showPanel('smery',this)">📚 Směry</button>
+  <button class="tab" onclick="showPanel('autori',this)">✍️ Autoři</button>
+  <button class="tab" onclick="showPanel('pojmy',this)">📖 Pojmy</button>
+  <button class="tab" onclick="showPanel('maturita',this)">🎓 Maturitní min.</button>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════ SMĚRY -->
+
+<div id="smery" class="panel active">
+  <div class="section-title">Literární <em>směry</em></div>
+
+  <div class="filo-banner">
+    <h3>Filozofický kontext doby</h3>
+    <div class="filo-item"><strong>Friedrich Nietzsche:</strong> „Bůh je mrtev." → nihilismus, nadčlověk, odmítání autorit</div>
+    <div class="filo-item"><strong>Henri Bergson:</strong> „Svět nelze poznat jen rozumem." → důraz na prožitek, intuici</div>
+    <div class="filo-item"><strong>Charles Darwin:</strong> evoluční teorie → přirozený výběr, otřes víry v Boha</div>
+    <div class="filo-item"><strong>Secese:</strong> „živé umění" — proniká do domácností (Alfons Mucha, ornamentální styl)</div>
+  </div>
+
+  <!-- IMPRESIONISMUS -->
+
+  <div class="smer imp open">
+    <div class="smer-header" onclick="toggleSmer(this)">
+      <div><span class="smer-name">Impresionismus</span><span class="smer-tag">zachytit prchavý okamžik</span></div>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="smer-body">
+      <div class="def"><strong>Definice:</strong> Zachycení prchavých okamžiků, nálad a smyslových vjemů — <em>ne popis reality, ale pocit z ní.</em></div>
+      <ul class="znaky">
+        <li>Smyslové vjemy (barvy, vůně, zvuky, světlo)</li>
+        <li>Subjektivita a nálada (místo děje)</li>
+        <li>Hudebnost verše, zvukomalebnost</li>
+        <li>Personifikace přírody — příroda „dýchá"</li>
+        <li>Zdrobněliny, citová zabarvení</li>
+      </ul>
+      <div class="quote imp">"Stříbrný vítr… Jen zachytit tu vteřinu, tu náladu, která se už nikdy nevrátí. Modravý opar nad řekou, kde se světlo tříští v tisíce drobných hvězdiček."</div>
+      <div class="authors">
+        <div class="author-chip imp">Fráňa Šrámek<span>Stříbrný vítr · Měsíc nad řekou · Splav</span></div>
+        <div class="author-chip imp">Antonín Sova<span>Květy intimních nálad · U řek</span></div>
+        <div class="author-chip imp">Paul Verlaine 🇫🇷<span>Romance beze slov · Saturnské básně</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYMBOLISMUS -->
+
+  <div class="smer sym">
+    <div class="smer-header" onclick="toggleSmer(this)">
+      <div><span class="smer-name">Symbolismus</span><span class="smer-tag">vyjádření pomocí symbolů</span></div>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="smer-body">
+      <div class="def"><strong>Definice:</strong> Abstraktní pravdy a city vyjádřené pomocí <em>symbolů</em> — básník je „vidoucí" (voyant), který odhaluje skrytou podstatu světa.</div>
+      <ul class="znaky">
+        <li>Symboly místo přímého pojmenování (noc, hvězdy, chrámy)</li>
+        <li>Únik do snu, podvědomí, mystiky</li>
+        <li>Subjektivita a mnohovýznamovost</li>
+        <li>Synestézie — míchání vjemů různých smyslů (barvy + zvuky)</li>
+        <li>Abstraktní jazyk, duchovní témata</li>
+      </ul>
+      <div class="quote sym">"Příroda je chrám, kde živé sloupy v sbor / nezřetelná slova občas vydechují; / člověk tam prochází skrz lesy symbolů…"</div>
+      <div class="authors">
+        <div class="author-chip sym">Otokar Březina<span>Tajemné dálky · Svítání na západě</span></div>
+        <div class="author-chip sym">Charles Baudelaire 🇫🇷<span>Květy zla · Zdechlina</span></div>
+        <div class="author-chip sym">Arthur Rimbaud 🇫🇷<span>Opilý koráb</span></div>
+        <div class="author-chip sym">Viktor Dyk<span>Krysař · Devátá vlna</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEKADENCE -->
+
+  <div class="smer dek">
+    <div class="smer-header" onclick="toggleSmer(this)">
+      <div><span class="smer-name">Dekadence</span><span class="smer-tag">úpadek, pesimismus, krása v záhubě</span></div>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="smer-body">
+      <div class="def"><strong>Definice:</strong> Pocit morálního a kulturního <em>úpadku</em> — zájem o smrt, hřích, únavu ze života a hledání krásy v rozkladu.</div>
+      <ul class="znaky">
+        <li>Pesimismus, temnota, melancholie</li>
+        <li>Bohémství — sex, drogy, alkohol jako protest</li>
+        <li>Život bez smyslu (nihilismus v praxi)</li>
+        <li>Hledání ideálu — „kde se mám zastavit"</li>
+        <li>Estetismus: umění pro umění, bez morálního poučení</li>
+        <li>Časté spojení se šlechtou / dandyismem</li>
+      </ul>
+      <div class="quote dek">"Jsem stínem mezi stíny, básníkem, jenž zpívá o krásách umírajících v objetí smrti sladké…"</div>
+      <div class="authors">
+        <div class="author-chip dek">Karel Hlaváček<span>Pozdě k ránu</span></div>
+        <div class="author-chip dek">Oscar Wilde 🇬🇧<span>Obraz Doriana Graye · Jak je důležité mít Filipa</span></div>
+        <div class="author-chip dek">Jiří Karásek ze Lvovic<span>časopis Moderní revue (1894–1925)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CIVILISMUS -->
+
+  <div class="smer civ">
+    <div class="smer-header" onclick="toggleSmer(this)">
+      <div><span class="smer-name">Civilismus</span><span class="smer-tag">oslava techniky a moderního života</span></div>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="smer-body">
+      <div class="def"><strong>Definice:</strong> Opak úniku z reality — oslava <em>pokroku, továren, techniky</em> a obyčejného pracujícího člověka. Krása je i v kouři komínů.</div>
+      <ul class="znaky">
+        <li>Pokrok, továrny, stroje jako zdroj krásy</li>
+        <li>Panteismus — Bůh je přítomen v každém atomu (Whitman)</li>
+        <li>Volný verš, anafory (opakování na začátku)</li>
+        <li>Oslava práce, demokracie, rovnosti</li>
+      </ul>
+      <div class="quote civ">"Oslavuji město, hluk strojů a tepání nové doby! Krása není jen v přírodě, ale i v kouři továrních komínů…"</div>
+      <div class="authors">
+        <div class="author-chip civ">S. K. Neumann<span>Nové zpěvy · Kniha lesů, vod a strání</span></div>
+        <div class="author-chip civ">Walt Whitman 🇺🇸<span>Stébla trávy · Zpěv o mně</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PROKLETÍ BÁSNÍCI -->
+
+  <div class="section-title" style="font-size:1.2rem">Prokletí básníci <em>(poètes maudits)</em></div>
+  <div class="card" style="margin-bottom:1rem">
+    <h3>Co to je?</h3>
+    <p>Termín zavedl <strong>Paul Verlaine</strong>. Básníci stojící na okraji společnosti — nepochopení, žijící v chudobě, alkoholu, konfliktu s morálkou doby. Jejich tvorba předbíhala dobu.</p>
+    <ul style="margin-top:.5rem">
+      <li>Paul Verlaine — impresionismus, „hudba především"</li>
+      <li>Charles Baudelaire — Květy zla, synestézie</li>
+      <li>Arthur Rimbaud — Opilý koráb, „básník musí být vidoucí"</li>
+      <li>Česky: František Gellner, Viktor Dyk</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ AUTOŘI -->
+
+<div id="autori" class="panel">
+  <div class="section-title">Klíčoví <em>autoři</em></div>
+
+  <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.25rem">Přehled autorů ke zkoušce — čeští i světoví.</p>
+
+  <div style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">🇨🇿 Čeští autoři</div>
+
+  <div class="autor-detail sym">
+    <h3>Otokar Březina (1868–1929)</h3>
+    <div class="meta">SYMBOLISMUS · vrchol českého symbolismu</div>
+    <p style="font-size:.88rem">Mystický básník, filozofické básně. Od pesimismu k mystickému přijetí osudu. Bolest jako cesta k vyššímu poznání.</p>
+    <div class="dila"><span class="dilo-tag">Tajemné dálky</span><span class="dilo-tag">Svítání na západě</span><span class="dilo-tag">Tys nešla</span></div>
+  </div>
+
+  <div class="autor-detail imp">
+    <h3>Antonín Sova (1864–1928)</h3>
+    <div class="meta">IMPRESIONISMUS · česká moderna</div>
+    <p style="font-size:.88rem">Zachycení večerní atmosféry krajiny, splynutí s přírodou. Melancholie, zdrobněliny, hudebnost.</p>
+    <div class="dila"><span class="dilo-tag">Květy intimních nálad</span><span class="dilo-tag">U řek</span></div>
+  </div>
+
+  <div class="autor-detail dek">
+    <h3>Karel Hlaváček (1874–1898)</h3>
+    <div class="meta">DEKADENCE · zemřel ve 24 letech</div>
+    <p style="font-size:.88rem">Temnota, mlha, dešťová noc, melancholie. Mistrovský popis noční atmosféry.</p>
+    <div class="dila"><span class="dilo-tag">Pozdě k ránu</span><span class="dilo-tag">Pršelo v noci…</span></div>
+  </div>
+
+  <div class="autor-detail bur">
+    <h3>Viktor Dyk (1877–1931)</h3>
+    <div class="meta">SYMBOLISMUS · individualismus · buřič-intelektuál</div>
+    <p style="font-size:.88rem">Ironický, úsečný styl. Paradoxy, pointované závěry. Politicky orientovaný na český nationalismus. Vězněn za 1. sv. války.</p>
+    <div class="dila"><span class="dilo-tag">Krysař</span><span class="dilo-tag">Devátá vlna</span><span class="dilo-tag">Zmoudření Dona Quijota</span><span class="dilo-tag">Země mluví</span></div>
+  </div>
+
+  <div class="autor-detail imp">
+    <h3>Fráňa Šrámek (1877–1952)</h3>
+    <div class="meta">IMPRESIONISMUS · vitalismus · antimilitarismus</div>
+    <p style="font-size:.88rem">Citovost, smyslové vjemy, oslava mládí a přírody. Dvakrát vězněn za protiválečné postoje. Rodný kraj = Sobotka.</p>
+    <div class="dila"><span class="dilo-tag">Stříbrný vítr</span><span class="dilo-tag">Měsíc nad řekou</span><span class="dilo-tag">Splav</span></div>
+  </div>
+
+  <div class="autor-detail civ">
+    <h3>S. K. Neumann (1875–1947)</h3>
+    <div class="meta">CIVILISMUS → komunismus · organizátor buřičů</div>
+    <p style="font-size:.88rem">Vývoj: anarchismus → dekadence → civilismus → komunismus. Organizoval schůzky v Olšanech. Oslava přírody i strojů.</p>
+    <div class="dila"><span class="dilo-tag">Nové zpěvy</span><span class="dilo-tag">Kniha lesů, vod a strání</span></div>
+  </div>
+
+  <div class="autor-detail bur">
+    <h3>František Gellner (1881–1914)</h3>
+    <div class="meta">BOHÉMA · kritika · cynismus</div>
+    <p style="font-size:.88rem">Nejdůslednější buřič. Psal provokativně, cynicky. Karikaturista. Zmizel na haličské frontě v září 1914.</p>
+    <div class="dila"><span class="dilo-tag">Po nás ať přijde potopa!</span><span class="dilo-tag">Radosti života</span><span class="dilo-tag">Všichni mi lhali</span></div>
+  </div>
+
+  <div class="autor-detail bur">
+    <h3>Petr Bezruč (1867–1958)</h3>
+    <div class="meta">SOCIÁLNÍ POEZIE · bard slezského lidu</div>
+    <p style="font-size:.88rem">Vlastním jménem Vladimír Vašek. Expresivní styl, lašské nářečí. Protest proti sociálnímu a národnostnímu útlaku.</p>
+    <div class="dila"><span class="dilo-tag">Slezské písně</span><span class="dilo-tag">Maryčka Magdónova</span><span class="dilo-tag">Ostrava</span><span class="dilo-tag">Kantor Halfar</span></div>
+  </div>
+
+  <div class="divider"></div>
+  <div style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">🌍 Světoví autoři</div>
+
+  <div class="autor-detail dek">
+    <h3>Oscar Wilde (1854–1900) 🇬🇧</h3>
+    <div class="meta">DEKADENCE · estetismus · dandy</div>
+    <p style="font-size:.88rem"><strong>Dandy</strong> = muž, který dbá o svůj zevnějšek a vystupování. <strong>Estetismus</strong> = umění pro umění, bez morálního poučení, pouze krása. Odsouzen za homosexualitu (2 roky vězení) → exil → změna jména.</p>
+    <div class="dila"><span class="dilo-tag">Obraz Doriana Graye</span><span class="dilo-tag">Jak je důležité mít Filipa</span><span class="dilo-tag">Balada o žaláři v Readingu</span></div>
+  </div>
+
+  <div class="autor-detail imp">
+    <h3>Paul Verlaine (1844–1896) 🇫🇷</h3>
+    <div class="meta">IMPRESIONISMUS · prokletý básník</div>
+    <p style="font-size:.88rem">„Hudba především!" — zvukomalebnost důležitější než přesný smysl. Zavedl termín prokletí básníci. Melodické, hudební verše evokující náladu.</p>
+    <div class="dila"><span class="dilo-tag">Romance beze slov</span><span class="dilo-tag">Saturnské básně</span><span class="dilo-tag">Podzimní píseň</span></div>
+  </div>
+
+  <div class="autor-detail sym">
+    <h3>Charles Baudelaire (1821–1867) 🇫🇷</h3>
+    <div class="meta">SYMBOLISMUS · prokletý básník</div>
+    <p style="font-size:.88rem">Otec moderní poezie. Synestézie — barvy, vůně a zvuky si „odpovídají". Nalézá krásu tam, kde ji nikdo nečeká (i v rozkladu).</p>
+    <div class="dila"><span class="dilo-tag">Květy zla</span><span class="dilo-tag">Zdechlina</span><span class="dilo-tag">Zodpovídání</span></div>
+  </div>
+
+  <div class="autor-detail sym">
+    <h3>Arthur Rimbaud (1854–1891) 🇫🇷</h3>
+    <div class="meta">SYMBOLISMUS · prokletý básník</div>
+    <p style="font-size:.88rem">Básník jako „vidoucí" — musí prožívat vše, i demoralizaci smyslů. Opilý koráb = básník/duše osvobozená od konvencí.</p>
+    <div class="dila"><span class="dilo-tag">Opilý koráb</span><span class="dilo-tag">(překlad V. Nezval)</span></div>
+  </div>
+
+  <div class="autor-detail civ">
+    <h3>Walt Whitman (1819–1892) 🇺🇸</h3>
+    <div class="meta">CIVILISMUS · zakladatel moderní americké poezie</div>
+    <p style="font-size:.88rem">Volný verš, anafory, katalogy (výčty). Panteismus — Bůh přítomen v každém atomu i stéblu trávy. Absolutní demokracie a rovnost.</p>
+    <div class="dila"><span class="dilo-tag">Stébla trávy</span><span class="dilo-tag">Zpěv o mně</span><span class="dilo-tag">O, kapitáne!</span></div>
+  </div>
+
+  <div class="autor-detail" style="--c:var(--muted)">
+    <h3>Guillaume Apollinaire (1880–1918) 🇫🇷</h3>
+    <div class="meta">AVANTGARDA · surrealismus · kaligramy</div>
+    <p style="font-size:.88rem">Jako první odstranil interpunkci z poezie. Kaligramy = básně ve tvaru obrazu. Otec termínu <em>surrealismus</em>.</p>
+    <div class="dila"><span class="dilo-tag">Kaligramy</span><span class="dilo-tag">Alkoholy</span><span class="dilo-tag">Pásmo</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ POJMY -->
+
+<div id="pojmy" class="panel">
+  <div class="section-title">Klíčové <em>pojmy</em></div>
+  <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.25rem">Nauč se definici + příklad autora.</p>
+  <div class="pojmy-grid">
+
+```
+<div class="pojem">
+  <div class="pojem-term">aforismus</div>
+  <div><div class="pojem-def">Krátký, výstižný, vtipný, trefný výrok — myšlenka v jedné větě.</div><div class="pojem-ex">↳ Oscar Wilde: „Jediný způsob, jak se zbavit pokušení, je vzdát se mu."</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">paradox</div>
+  <div><div class="pojem-def">Spojení zdánlivě si odporujících výrazů, které dohromady dávají smysl.</div><div class="pojem-ex">↳ Wilde: „Nic nemůže vyléčit duši, kromě smyslů, a smysly, kromě duše."</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">synestézie</div>
+  <div><div class="pojem-def">Míchání vjemů různých smyslů — barvy „zní", zvuky „voní".</div><div class="pojem-ex">↳ Baudelaire: „vůně, barvy, zvuky si odpovídají"</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">panteismus</div>
+  <div><div class="pojem-def">Víra, že Bůh (božská energie) je přítomen ve všem — v trávě, atomu, člověku.</div><div class="pojem-ex">↳ Walt Whitman, S. K. Neumann</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">estetismus</div>
+  <div><div class="pojem-def">Umění pro umění — nemá morálně poučovat, jediným cílem je krása.</div><div class="pojem-ex">↳ Oscar Wilde</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">dandy</div>
+  <div><div class="pojem-def">Muž, který dbá o svůj zevnějšek, vystupování, je nonkonformní a nezávislý.</div><div class="pojem-ex">↳ Oscar Wilde (sám sebe stylizoval)</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">antimilitarismus</div>
+  <div><div class="pojem-def">Odpor k válce, vojně a násilí jako státnímu nástroji.</div><div class="pojem-ex">↳ Fráňa Šrámek — vězněn za protiválečné básně</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">vitalismus</div>
+  <div><div class="pojem-def">Oslava života, mladosti, přírody, erotického napětí a radosti z existence.</div><div class="pojem-ex">↳ Šrámek — Splav, Neumann — Kniha lesů</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">kaligram</div>
+  <div><div class="pojem-def">Báseň uspořádaná do tvaru obrazu — propojení básnictví a výtvarného umění.</div><div class="pojem-ex">↳ Apollinaire — Eiffelovka</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">anafora</div>
+  <div><div class="pojem-def">Opakování stejného slova/skupiny slov na začátku po sobě jdoucích veršů — důraz, rytmus.</div><div class="pojem-ex">↳ Walt Whitman (výčty v Stéblech trávy)</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">epifora</div>
+  <div><div class="pojem-def">Opakování na konci veršů (opak anafory) — intenzifikuje vyznění.</div><div class="pojem-ex">↳ protiklad anafory</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">fin de siècle</div>
+  <div><div class="pojem-def">„Konec století" — pocit napětí, ztráty jistot, dekadence a hledání nových hodnot na přelomu století.</div><div class="pojem-ex">↳ kontext celé literární moderny</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">hedonismus</div>
+  <div><div class="pojem-def">Touha po věčném mládí, potěšení a smyslových zážitcích jako nejvyšší hodnotě.</div><div class="pojem-ex">↳ Lord Henry v Obrazu Doriana Graye</div></div>
+</div>
+
+<div class="pojem">
+  <div class="pojem-term">symbolismus — „les symbolů"</div>
+  <div><div class="pojem-def">Příroda jako chrám plný skrytých symbolů — člověk jimi prochází a „čtou" ho.</div><div class="pojem-ex">↳ Baudelaire — Zodpovídání</div></div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MATURITA -->
+
+<div id="maturita" class="panel">
+  <div class="section-title">Maturitní <em>minimum</em></div>
+
+  <div class="card" style="margin-bottom:1rem;border-color:var(--accent)">
+    <h3>⚡ Proč únik od reality?</h3>
+    <p>Nespokojenost s realitou — rychlý rozvoj techniky, ztráta hodnot, sociální napětí, spory o kolonie, Nietzscheův nihilismus. Umělci hledali smysl v symbolech, snech a kráse.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Anarchističtí buřiči — 3 body</h3>
+      <ul>
+        <li>Odpor k autoritám (stát, církev, rodina)</li>
+        <li>Důraz na svobodu jedince (bohémství)</li>
+        <li>Srozumitelnost — psali pro běžné lidi</li>
+      </ul>
+      <p style="margin-top:.5rem;color:var(--muted);font-size:.78rem">Šrámek, Dyk, Neumann, Gellner + Bezruč</p>
+    </div>
+
+```
+<div class="card">
+  <h3>Moderní revue (1894–1925)</h3>
+  <ul>
+    <li>Český časopis — šíření dekadence</li>
+    <li>Zakladatelé: Jiří Karásek ze Lvovic, Arnošt Procházka</li>
+    <li>Básně + obrázky</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Obraz Doriana Graye — klíčové body</h3>
+  <ul>
+    <li>Portrét = zrcadlo duše (obraz stárne, Dorian ne)</li>
+    <li>Krása a morálka se rozejdou</li>
+    <li>Lord Henry → hedonismus, věčné mládí</li>
+    <li>Symboly dekadence: luxus, parfémy, umění jako modla</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Krysař (Viktor Dyk) — klíčové body</h3>
+  <ul>
+    <li>Saská pověst — město Hammeln</li>
+    <li>Krysař = symbol osamělého jedince</li>
+    <li>Trestá zkažené město odvedením lidí</li>
+    <li>Symbolismus, úsečný rytmus, antitéze</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Opilý koráb (Rimbaud)</h3>
+  <ul>
+    <li>Koráb = básník/duše bez konvencí</li>
+    <li>Cesta = svoboda, fantazie, chaos</li>
+    <li>Opilost = básnické vidění (voyant)</li>
+    <li>Překlad: Vítězslav Nezval</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Tys nešla (Březina)</h3>
+  <ul>
+    <li>Milá se nedostavila → mystické spojení</li>
+    <li>Bolest → duchovní vzestup</li>
+    <li>Smrt = brána ke světlu, ne konec</li>
+    <li>Symbolismus, volný verš, patos</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Slezské písně (Bezruč)</h3>
+  <ul>
+    <li>Sociální útlak horníků</li>
+    <li>Národnostní útlak (poněmčování)</li>
+    <li>Lašské nářečí, expresivní styl</li>
+    <li>Kolektivní hrdina (mluvčí = lid)</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Stébla trávy (Whitman)</h3>
+  <ul>
+    <li>Celoživotní sbírka (12 → 400 básní)</li>
+    <li>Volný verš, anafory, katalogy</li>
+    <li>Panteismus + demokracie + rovnost</li>
+    <li>Zakladatel moderní amer. poezie</li>
+  </ul>
+</div>
+```
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title" style="font-size:1.1rem">Rychlá tabulka <em>směrů</em></div>
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:.83rem">
+      <thead>
+        <tr style="border-bottom:2px solid var(--border)">
+          <th style="text-align:left;padding:.5rem .75rem;color:var(--muted);font-weight:500">Směr</th>
+          <th style="text-align:left;padding:.5rem .75rem;color:var(--muted);font-weight:500">Klíčový znak</th>
+          <th style="text-align:left;padding:.5rem .75rem;color:var(--muted);font-weight:500">Čeští zástupci</th>
+          <th style="text-align:left;padding:.5rem .75rem;color:var(--muted);font-weight:500">Světoví zástupci</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:.5rem .75rem;color:var(--imp);font-weight:500">Impresionismus</td>
+          <td style="padding:.5rem .75rem">smyslové vjemy, nálada, okamžik</td>
+          <td style="padding:.5rem .75rem">Šrámek, Sova</td>
+          <td style="padding:.5rem .75rem">Verlaine</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:.5rem .75rem;color:var(--sym);font-weight:500">Symbolismus</td>
+          <td style="padding:.5rem .75rem">symboly, sny, synestézie</td>
+          <td style="padding:.5rem .75rem">Březina, Dyk</td>
+          <td style="padding:.5rem .75rem">Baudelaire, Rimbaud</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:.5rem .75rem;color:var(--dek);font-weight:500">Dekadence</td>
+          <td style="padding:.5rem .75rem">pesimismus, úpadek, estetismus</td>
+          <td style="padding:.5rem .75rem">Hlaváček, Karásek</td>
+          <td style="padding:.5rem .75rem">Wilde</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:.5rem .75rem;color:var(--civ);font-weight:500">Civilismus</td>
+          <td style="padding:.5rem .75rem">technika, pokrok, panteismus</td>
+          <td style="padding:.5rem .75rem">Neumann</td>
+          <td style="padding:.5rem .75rem">Whitman</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem .75rem;color:var(--bur);font-weight:500">Buřiči</td>
+          <td style="padding:.5rem .75rem">odpor k autoritám, bohémství</td>
+          <td style="padding:.5rem .75rem">Gellner, Šrámek, Dyk, Neumann, Bezruč</td>
+          <td style="padding:.5rem .75rem">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</main>
+
+<script>
+function showPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleSmer(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
