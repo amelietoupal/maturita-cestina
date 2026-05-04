@@ -341,8 +341,124 @@ margin-bottom: 1.5rem;
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(–bg); }
 ::-webkit-scrollbar-thumb { background: var(–border); border-radius: 3px; }
-</style>
 
+/* ── DARK HEADINGS FIX ── */
+.section-title { color: #fff; }
+.smer-name { color: var(–c, #fff); }
+.card h3 { color: var(–accent); }
+h3 { color: var(–accent); }
+
+/* ── AUTOR CARDS ── */
+.autor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+@media(max-width:580px) { .autor-grid { grid-template-columns: 1fr; } }
+.autor-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-top: 3px solid var(–ac, var(–border));
+border-radius: 4px;
+overflow: hidden;
+transition: transform .2s, box-shadow .2s;
+}
+.autor-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.4); }
+.autor-head { padding: .85rem 1.1rem .7rem; border-bottom: 1px solid var(–border); }
+.autor-name { font-family: ‘Playfair Display’, serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .1rem; }
+.autor-years { font-size: .72rem; color: var(–muted); margin-bottom: .35rem; }
+.autor-dirs { display: flex; flex-wrap: wrap; gap: .25rem; }
+.dir-pill { font-size: .65rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; padding: .15rem .5rem; border-radius: 3px; background: rgba(255,255,255,.07); color: var(–ac, var(–muted)); border: 1px solid rgba(255,255,255,.08); }
+.autor-body { padding: .7rem 1.1rem .9rem; }
+.autor-body ul { list-style: none; padding: 0; }
+.autor-body ul li { font-size: .86rem; color: var(–text); padding: .25rem 0 .25rem .9rem; position: relative; border-bottom: 1px solid rgba(255,255,255,.04); }
+.autor-body ul li:last-child { border-bottom: none; }
+.autor-body ul li::before { content: ‘–’; position: absolute; left: 0; color: var(–muted); }
+.autor-body ul li strong { color: var(–accent); font-weight: 500; }
+.autor-works { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .6rem; padding-top: .6rem; border-top: 1px solid var(–border); }
+.work-chip { font-size: .72rem; font-style: italic; background: rgba(255,255,255,.05); border-radius: 3px; padding: .2rem .55rem; color: var(–muted); border: 1px solid var(–border); }
+.autor-star { font-size: .78rem; color: var(–ac, var(–accent)); margin-top: .5rem; padding-top: .4rem; border-top: 1px dashed var(–border); font-style: italic; }
+
+/* ── POEM BLOCKS ── */
+.poem-block { background: var(–surface); border: 1px solid var(–border); border-radius: 4px; overflow: hidden; margin-bottom: 1rem; }
+.poem-header { display: flex; justify-content: space-between; align-items: flex-start; padding: .85rem 1.1rem .7rem; border-bottom: 1px solid var(–border); gap: .5rem; }
+.poem-title { font-family: ‘Playfair Display’, serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.poem-meta { font-size: .72rem; color: var(–muted); margin-top: .15rem; }
+.poem-badge { font-size: .65rem; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; padding: .2rem .55rem; border-radius: 3px; white-space: nowrap; flex-shrink: 0; margin-top: .15rem; }
+.poem-cols { display: grid; grid-template-columns: 1fr 1fr; }
+@media(max-width:580px){ .poem-cols { grid-template-columns: 1fr; } }
+.poem-text-col { padding: .9rem 1.1rem; border-right: 1px solid var(–border); }
+@media(max-width:580px){ .poem-text-col { border-right: none; border-bottom: 1px solid var(–border); } }
+.poem-verse { font-size: .84rem; line-height: 1.85; color: var(–muted); white-space: pre-line; font-style: italic; }
+.poem-analysis { padding: .9rem 1.1rem; }
+.analysis-label { font-size: .65rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(–muted); margin-bottom: .5rem; }
+.a-item { margin-bottom: .55rem; }
+.a-item strong { display: block; font-size: .8rem; font-weight: 500; color: var(–accent); }
+.a-item span { font-size: .8rem; color: var(–text); }
+
+/* ── FLASHCARDS ── */
+.flash-wrap { max-width: 520px; margin: 0 auto; }
+.flash-count { text-align: center; font-size: .72rem; color: var(–muted); margin-bottom: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+.flash-card { perspective: 1000px; height: 210px; cursor: pointer; margin-bottom: 1rem; user-select: none; }
+.flash-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+.flash-card.flipped .flash-inner { transform: rotateY(180deg); }
+.flash-front, .flash-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; text-align: center; border: 1px solid var(–border); }
+.flash-front { background: var(–surface); }
+.flash-back { background: #1e1c18; transform: rotateY(180deg); border-color: var(–accent); }
+.flash-hint { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(–muted); margin-bottom: .6rem; }
+.flash-term { font-family: ‘Playfair Display’, serif; font-size: 1.4rem; font-weight: 700; color: #fff; line-height: 1.3; }
+.flash-def { font-size: .88rem; color: var(–text); line-height: 1.55; }
+.flash-ex { font-size: .75rem; color: var(–muted); margin-top: .6rem; font-style: italic; }
+.flash-nav { display: flex; justify-content: center; align-items: center; gap: .75rem; margin-bottom: .5rem; }
+.flash-btn { background: var(–surface); border: 1px solid var(–border); border-radius: 4px; padding: .5rem 1rem; font-size: .8rem; font-weight: 500; font-family: ‘DM Sans’, sans-serif; cursor: pointer; color: var(–text); transition: all .15s; }
+.flash-btn:hover { background: rgba(255,255,255,.08); border-color: var(–accent); color: var(–accent); }
+.flash-tip { text-align: center; font-size: .72rem; color: var(–muted); }
+.flash-dots { display: flex; gap: .3rem; justify-content: center; margin: .5rem 0; }
+.fdot { width: 6px; height: 6px; border-radius: 50%; background: var(–border); transition: background .2s; }
+.fdot.seen { background: var(–accent); opacity: .5; }
+.fdot.cur { background: var(–accent); }
+
+/* ── QUIZ ── */
+.quiz-wrap { max-width: 620px; margin: 0 auto; }
+.qprog { display: flex; gap: .3rem; margin-bottom: 1.25rem; }
+.qd { flex: 1; height: 3px; border-radius: 2px; background: var(–border); transition: background .3s; }
+.qd.done { background: var(–civ); }
+.qd.cur { background: var(–accent); }
+.qcard { background: var(–surface); border: 1px solid var(–border); border-radius: 4px; padding: 1.5rem; margin-bottom: 1rem; min-height: 190px; }
+.qnum { font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; color: var(–muted); margin-bottom: .6rem; }
+.qq { font-family: ‘Playfair Display’, serif; font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.4; margin-bottom: 1.1rem; }
+.qopts { display: grid; gap: .45rem; }
+.qopt { background: rgba(255,255,255,.04); border: 1px solid var(–border); border-radius: 4px; padding: .65rem .95rem; font-size: .88rem; cursor: pointer; text-align: left; color: var(–text); transition: all .15s; font-family: ‘DM Sans’, sans-serif; font-weight: 300; }
+.qopt:hover:not(:disabled) { border-color: var(–accent); background: rgba(232,200,122,.07); }
+.qopt.correct { background: rgba(133,184,122,.15); border-color: var(–civ); color: var(–civ); }
+.qopt.wrong { background: rgba(200,80,80,.1); border-color: #c05050; color: #e07070; }
+.qopt:disabled { cursor: default; }
+.qfb { margin-top: .85rem; padding: .65rem .9rem; border-radius: 4px; font-size: .84rem; display: none; line-height: 1.5; }
+.qfb.show { display: block; }
+.qfb.ok { background: rgba(133,184,122,.12); color: #85b87a; border: 1px solid rgba(133,184,122,.25); }
+.qfb.fail { background: rgba(200,80,80,.1); color: #e07070; border: 1px solid rgba(200,80,80,.2); }
+.qnav { display: flex; justify-content: space-between; align-items: center; margin-top: .85rem; }
+.btn { background: var(–surface); border: 1px solid var(–border); border-radius: 4px; padding: .55rem 1.1rem; font-size: .8rem; font-weight: 500; font-family: ‘DM Sans’, sans-serif; cursor: pointer; color: var(–text); transition: all .15s; letter-spacing: .03em; }
+.btn:hover { background: rgba(255,255,255,.07); }
+.btn:disabled { opacity: .3; cursor: default; }
+.btn-acc { background: var(–accent); color: #1a1610; border-color: var(–accent); }
+.btn-acc:hover { opacity: .88; background: var(–accent); }
+.qscore { font-size: .8rem; color: var(–muted); }
+.qresult { text-align: center; padding: 2rem 1rem; }
+.qresult .big { font-family: ‘Playfair Display’, serif; font-size: 3rem; font-weight: 700; color: #fff; }
+.qresult .sub { color: var(–muted); font-size: .9rem; margin-top: .4rem; margin-bottom: 1.25rem; }
+.qresult .msg { font-size: .92rem; color: var(–text); margin-bottom: 1.5rem; line-height: 1.6; }
+
+/* ── CHECKLIST ── */
+.check-item { display: flex; align-items: flex-start; gap: .6rem; padding: .45rem 0; border-bottom: 1px solid var(–border); cursor: pointer; }
+.check-item:last-child { border-bottom: none; }
+.check-box { width: 18px; height: 18px; border: 1.5px solid var(–border); border-radius: 3px; flex-shrink: 0; margin-top: .15rem; display: flex; align-items: center; justify-content: center; transition: all .15s; font-size: .72rem; color: transparent; }
+.check-item.ticked .check-box { background: var(–civ); border-color: var(–civ); color: #fff; }
+.check-label { font-size: .86rem; color: var(–text); }
+.check-item.ticked .check-label { color: var(–muted); text-decoration: line-through; }
+
+/* ── PROGRESS ── */
+.prog-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(–bg); border-bottom: 1px solid var(–border); padding: .5rem 1.25rem; display: flex; align-items: center; gap: .75rem; font-size: .72rem; color: var(–muted); letter-spacing: .08em; text-transform: uppercase; }
+.prog-track { flex: 1; height: 2px; background: var(–border); border-radius: 1px; overflow: hidden; }
+.prog-fill { height: 100%; background: linear-gradient(90deg, var(–imp), var(–civ)); border-radius: 1px; transition: width .5s ease; width: 0%; }
+
+</style>
 </head>
 <body>
 
@@ -359,11 +475,19 @@ margin-bottom: 1.5rem;
   </div>
 </header>
 
+<div class="prog-bar-wrap">
+  <span>Pokrok studia</span>
+  <div class="prog-track"><div class="prog-fill" id="pf"></div></div>
+  <span id="plabel">0 %</span>
+</div>
 <div class="tabs">
   <button class="tab active" onclick="showPanel('smery',this)">📚 Směry</button>
   <button class="tab" onclick="showPanel('autori',this)">✍️ Autoři</button>
-  <button class="tab" onclick="showPanel('pojmy',this)">📖 Pojmy</button>
-  <button class="tab" onclick="showPanel('maturita',this)">🎓 Maturitní min.</button>
+  <button class="tab" onclick="showPanel('basne',this)">📜 Básně</button>
+  <button class="tab" onclick="showPanel('pojmy',this)">🔑 Pojmy</button>
+  <button class="tab" onclick="showPanel('maturita',this)">🎓 Maturita</button>
+  <button class="tab" onclick="showPanel('flashcard',this)">🃏 Flashkarty</button>
+  <button class="tab" onclick="showPanel('kviz',this)">✅ Kvíz</button>
 </div>
 
 <main>
@@ -501,115 +625,419 @@ margin-bottom: 1.5rem;
 <!-- ═══════════════════════════════════════════ AUTOŘI -->
 
 <div id="autori" class="panel">
-  <div class="section-title">Klíčoví <em>autoři</em></div>
+  <div class="section-title">Čeští <em>autoři</em></div>
+  <div class="autor-grid">
 
-  <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.25rem">Přehled autorů ke zkoušce — čeští i světoví.</p>
+```
+<div class="autor-card" style="--ac:var(--imp)">
+  <div class="autor-head">
+    <div class="autor-name">Fráňa Šrámek</div>
+    <div class="autor-years">1877–1952</div>
+    <div class="autor-dirs"><span class="dir-pill">Impresionismus</span><span class="dir-pill">Vitalismus</span><span class="dir-pill">Buřič</span></div>
+  </div>
+  <div class="autor-body"><ul>
+    <li>Za protiválečné básně vězněn <strong>dvakrát</strong></li>
+    <li>Miloval rodnou <strong>Sobotku</strong> — dějiště mnoha děl</li>
+    <li>Styl: citovost, smyslové vjemy (barvy, vůně), oslava mládí, melodičnost</li>
+    <li><strong>Stříbrný vítr</strong> — román o dospívání Jana Ratkina; ideály mládí vs. přetvářka dospělých</li>
+    <li><strong>Měsíc nad řekou</strong> (drama) — melancholické setkání abiturientů po letech</li>
+    <li><strong>Splav</strong> (sbírka, 1916) — vrchol českého vitalismu</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Stříbrný vítr</span><span class="work-chip">Měsíc nad řekou</span><span class="work-chip">Splav</span></div>
+  <div class="autor-star">✦ Báseň „Píšou mi psaní" = hymna odporu proti rakouskému militarismu</div>
+  </div>
+</div>
 
-  <div style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">🇨🇿 Čeští autoři</div>
+<div class="autor-card" style="--ac:var(--imp)">
+  <div class="autor-head">
+    <div class="autor-name">Antonín Sova</div>
+    <div class="autor-years">1864–1928</div>
+    <div class="autor-dirs"><span class="dir-pill">Impresionismus</span><span class="dir-pill">Česká moderna</span></div>
+  </div>
+  <div class="autor-body"><ul>
+    <li>Zachycení večerní atmosféry jihočeské krajiny u řeky</li>
+    <li>Splynutí přírody s vnitřním stavem básníka</li>
+    <li>Melancholie, zdrobněliny, hudebnost, mistrovský popis světla</li>
+    <li><strong>Květy intimních nálad</strong> (1891) — sbírka odráží dětství autora v Pacově</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Květy intimních nálad</span><span class="work-chip">U řek</span></div>
+  </div>
+</div>
 
-  <div class="autor-detail sym">
-    <h3>Otokar Březina (1868–1929)</h3>
-    <div class="meta">SYMBOLISMUS · vrchol českého symbolismu</div>
-    <p style="font-size:.88rem">Mystický básník, filozofické básně. Od pesimismu k mystickému přijetí osudu. Bolest jako cesta k vyššímu poznání.</p>
-    <div class="dila"><span class="dilo-tag">Tajemné dálky</span><span class="dilo-tag">Svítání na západě</span><span class="dilo-tag">Tys nešla</span></div>
+<div class="autor-card" style="--ac:var(--sym)">
+  <div class="autor-head">
+    <div class="autor-name">Otokar Březina</div>
+    <div class="autor-years">1868–1929</div>
+    <div class="autor-dirs"><span class="dir-pill">Symbolismus</span><span class="dir-pill">Mystika</span></div>
+  </div>
+  <div class="autor-body"><ul>
+    <li>Přerod od pesimismu k <strong>mystickému přijetí bolesti</strong> jako cesty k poznání</li>
+    <li>Smrt = brána ke světlu, ne konec</li>
+    <li>Styl: volný verš, silná hudebnost, patos, složitá obraznost</li>
+    <li><strong>Tajemné dálky</strong> (1895) — první sbírka, pesimismus</li>
+    <li><strong>Svítání na západ</strong>ě (1896) — vrchol; obsahuje <em>Tys nešla</em></li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Tajemné dálky</span><span class="work-chip">Svítání na záp.</span><span class="work-chip">Tys nešla</span></div>
+  </div>
+</div>
+
+<div class="autor-card" style="--ac:var(--dek)">
+  <div class="autor-head">
+    <div class="autor-name">Karel Hlaváček</div>
+    <div class="autor-years">1874–1898</div>
+    <div class="autor-dirs"><span class="dir-pill">Dekadence</span></div>
+  </div>
+  <div class="autor-body"><ul>
+    <li>Zemřel ve 24 letech — sám ztělesňuje dekadenci</li>
+    <li>Mistrovský popis noční atmosféry: dešťová noc, mlha, srp měsíce</li>
+    <li>Pocit beznaděje, lhostejnosti světa a zmaru</li>
+    <li><strong>Pršelo v noci…</strong> = vrcholná ukázka české dekadence</li>
+    <li>Refrén „Je pozdě již…" zesiluje pocit nenávratnosti</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Pozdě k ránu</span><span class="work-chip">Pršelo v noci…</span><span class="work-chip">Mstivá kantiléna</span></div>
+  </div>
+</div>
+
+<div class="autor-card" style="--ac:var(--bur)">
+  <div class="autor-head">
+    <div class="autor-name">Viktor Dyk</div>
+    <div class="autor-years">1877–1931</div>
+    <div class="autor-dirs"><span class="dir-pill">Symbolismus</span><span class="dir-pill">Buřič-intelektuál</span></div>
+  </div>
+  <div class="autor-body"><ul>
+    <li>Výrazný politik a novinář, zastánce českého nacionalismu</li>
+    <li>Vězněn za 1. sv. války pro odbojovou činnost</li>
+    <li>Zemřel na srdeční mrtvici při koupání v Jaderském moři (ostrov Lopud)</li>
+    <li>Styl: ironický, úsečný, paradoxy, pointované závěry</li>
+    <li><strong>Krysař</strong> (novela, 1915) — přeprac. saské pověsti; osamělý jedinec trestá zkažené Hammeln</li>
+    <li><strong>Devátá vlna</strong> — sbírka, tragický pocit z blížící se smrti</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Krysař</span><span class="work-chip">Devátá vlna</span><span class="work-chip">Zmoudření Dona Quijota</span><span class="work-chip">Země mluví</span></div>
+  <div class="autor-star">✦ „Opustíš-li mne, nezahynu. Opustíš-li mne, zahyneš!" — neoficiální hymna odboje</div>
+  </div>
+</div>
+
+<div class="autor-card" style="--ac:var(--bur)">
+  <div class="autor-head">
+    <div class="autor-name">František Gellner</div>
+    <div class="autor-years">1881–1914?</div>
+    <div class="autor-dirs"><span class="dir-pill">Bohéma</span><span class="dir-pill">Cynismus</span><span class="dir-pill">Buřič</span></div>
+  </div>
+  <div class="autor-body"><ul>
+    <li>Nejdůslednější buřič — psal provokativně a cynicky</li>
+    <li>Vynikající karikaturista (Lidové noviny)</li>
+    <li>1914 — zmizel na haličské frontě, prohlášen za nezvěstného</li>
+    <li>Styl: hovorový jazyk, šanson, forma popěvku</li>
+    <li><strong>Po nás ať přijde potopa!</strong> — skepse a odpor k měšťanství</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Po nás ať přijde potopa!</span><span class="work-chip">Radosti života</span><span class="work-chip">Všichni mi lhali</span></div>
+  <div class="autor-star">✦ Záměrně se stylizoval do role „zkrachovance" — šokoval syrovostí i kolegy buřiče</div>
+  </div>
+</div>
+
+<div class="autor-card" style="--ac:var(--civ)">
+  <div class="autor-head">
+    <div class="autor-name">S. K. Neumann</div>
+    <div class="autor-years">1875–1947</div>
+    <div class="autor-dirs"><span class="dir-pill">Civilismus</span><span class="dir-pill">Organizátor buřičů</span></div>
+  </div>
+  <div class="autor-body"><ul>
+    <li>Klíčový organizátor — vila v Olšanech = schůzovní místo celé generace</li>
+    <li>Vývoj: anarchismus → dekadence → civilismus → komunismus</li>
+    <li>Vězněn za hnutí Omladina na Borech → radikalizace</li>
+    <li>Vydával časopis <strong>Nový kult</strong> (tribuna anarchistických myšlenek)</li>
+    <li><strong>Kniha lesů, vod a strání</strong> (1914) — přírodní lyrika, panteismus</li>
+    <li><strong>Nové zpěvy</strong> (1918) — civilismus: dráty, motory, hřmot měst</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Nové zpěvy</span><span class="work-chip">Kniha lesů, vod a strání</span></div>
+  </div>
+</div>
+
+<div class="autor-card" style="--ac:var(--bur)">
+  <div class="autor-head">
+    <div class="autor-name">Petr Bezruč</div>
+    <div class="autor-years">1867–1958 · vl. jm. Vladimír Vašek</div>
+    <div class="autor-dirs"><span class="dir-pill">Sociální poezie</span><span class="dir-pill">Přidružený buřič</span></div>
+  </div>
+  <div class="autor-body"><ul>
+    <li>Poštovní úředník v Brně — svou identitu básníka dlouho tajil</li>
+    <li>Žil samotářsky ve Slezsku, nebyl součástí pražské bohémské party</li>
+    <li>Styl: expresivní, úsečný, <strong>lašské nářečí</strong>, personifikace</li>
+    <li>Protest proti sociálnímu (bída horníků) i národnostnímu útlaku (poněmčování)</li>
+    <li>Kolektivní hrdina — básník mluví za celý lid Slezska</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Slezské písně</span><span class="work-chip">Maryčka Magdónova</span><span class="work-chip">Ostrava</span><span class="work-chip">Kantor Halfar</span></div>
+  <div class="autor-star">✦ Vášnivý turista — i ve vysokém věku chodil Beskydy v lehké košili</div>
+  </div>
+</div>
+```
+
   </div>
 
-  <div class="autor-detail imp">
-    <h3>Antonín Sova (1864–1928)</h3>
-    <div class="meta">IMPRESIONISMUS · česká moderna</div>
-    <p style="font-size:.88rem">Zachycení večerní atmosféry krajiny, splynutí s přírodou. Melancholie, zdrobněliny, hudebnost.</p>
-    <div class="dila"><span class="dilo-tag">Květy intimních nálad</span><span class="dilo-tag">U řek</span></div>
+  <div class="section-title" style="margin-top:1.5rem">Světoví <em>autoři</em></div>
+  <div class="autor-grid">
+
+```
+<div class="autor-card" style="--ac:var(--dek)">
+  <div class="autor-head">
+    <div class="autor-name">Oscar Wilde 🇬🇧</div>
+    <div class="autor-years">1854–1900 · Irsko</div>
+    <div class="autor-dirs"><span class="dir-pill">Dekadence</span><span class="dir-pill">Estetismus</span><span class="dir-pill">Dandy</span></div>
   </div>
-
-  <div class="autor-detail dek">
-    <h3>Karel Hlaváček (1874–1898)</h3>
-    <div class="meta">DEKADENCE · zemřel ve 24 letech</div>
-    <p style="font-size:.88rem">Temnota, mlha, dešťová noc, melancholie. Mistrovský popis noční atmosféry.</p>
-    <div class="dila"><span class="dilo-tag">Pozdě k ránu</span><span class="dilo-tag">Pršelo v noci…</span></div>
+  <div class="autor-body"><ul>
+    <li><strong>Dandy</strong> = muž dbající o zevnějšek, nonkonformní, nezávislý</li>
+    <li><strong>Estetismus</strong> = umění pro umění, bez morálního poučení</li>
+    <li><strong>Aforismy</strong> = krátké, trefné, vtipné výroky; <strong>Paradoxy</strong></li>
+    <li>Odsouzen za homosexualitu → 2 roky vězení → exil + změna jména</li>
+    <li><strong>Obraz Doriana Graye</strong> — portrét stárne místo Doriana; krása vs. morálka</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Obraz Doriana Graye</span><span class="work-chip">Jak je důl. mít Filipa</span><span class="work-chip">Balada o žaláři v Readingu</span></div>
   </div>
+</div>
 
-  <div class="autor-detail bur">
-    <h3>Viktor Dyk (1877–1931)</h3>
-    <div class="meta">SYMBOLISMUS · individualismus · buřič-intelektuál</div>
-    <p style="font-size:.88rem">Ironický, úsečný styl. Paradoxy, pointované závěry. Politicky orientovaný na český nationalismus. Vězněn za 1. sv. války.</p>
-    <div class="dila"><span class="dilo-tag">Krysař</span><span class="dilo-tag">Devátá vlna</span><span class="dilo-tag">Zmoudření Dona Quijota</span><span class="dilo-tag">Země mluví</span></div>
+<div class="autor-card" style="--ac:var(--imp)">
+  <div class="autor-head">
+    <div class="autor-name">Paul Verlaine 🇫🇷</div>
+    <div class="autor-years">1844–1896</div>
+    <div class="autor-dirs"><span class="dir-pill">Impresionismus</span><span class="dir-pill">Prokletý básník</span></div>
   </div>
-
-  <div class="autor-detail imp">
-    <h3>Fráňa Šrámek (1877–1952)</h3>
-    <div class="meta">IMPRESIONISMUS · vitalismus · antimilitarismus</div>
-    <p style="font-size:.88rem">Citovost, smyslové vjemy, oslava mládí a přírody. Dvakrát vězněn za protiválečné postoje. Rodný kraj = Sobotka.</p>
-    <div class="dila"><span class="dilo-tag">Stříbrný vítr</span><span class="dilo-tag">Měsíc nad řekou</span><span class="dilo-tag">Splav</span></div>
+  <div class="autor-body"><ul>
+    <li>Zavedl termín <em>prokletí básníci (poètes maudits)</em></li>
+    <li><strong>„Hudba především!"</strong> — zvukomalebnost důležitější než smysl slov</li>
+    <li>Melodické verše evokující náladu, nikoliv děj nebo příběh</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Romance beze slov</span><span class="work-chip">Saturnské básně</span><span class="work-chip">Podzimní píseň</span></div>
   </div>
+</div>
 
-  <div class="autor-detail civ">
-    <h3>S. K. Neumann (1875–1947)</h3>
-    <div class="meta">CIVILISMUS → komunismus · organizátor buřičů</div>
-    <p style="font-size:.88rem">Vývoj: anarchismus → dekadence → civilismus → komunismus. Organizoval schůzky v Olšanech. Oslava přírody i strojů.</p>
-    <div class="dila"><span class="dilo-tag">Nové zpěvy</span><span class="dilo-tag">Kniha lesů, vod a strání</span></div>
+<div class="autor-card" style="--ac:var(--sym)">
+  <div class="autor-head">
+    <div class="autor-name">Charles Baudelaire 🇫🇷</div>
+    <div class="autor-years">1821–1867</div>
+    <div class="autor-dirs"><span class="dir-pill">Symbolismus</span><span class="dir-pill">Prokletý básník</span><span class="dir-pill">Otec moderní poezie</span></div>
   </div>
-
-  <div class="autor-detail bur">
-    <h3>František Gellner (1881–1914)</h3>
-    <div class="meta">BOHÉMA · kritika · cynismus</div>
-    <p style="font-size:.88rem">Nejdůslednější buřič. Psal provokativně, cynicky. Karikaturista. Zmizel na haličské frontě v září 1914.</p>
-    <div class="dila"><span class="dilo-tag">Po nás ať přijde potopa!</span><span class="dilo-tag">Radosti života</span><span class="dilo-tag">Všichni mi lhali</span></div>
+  <div class="autor-body"><ul>
+    <li><strong>Synestézie</strong> — barvy, vůně a zvuky si „odpovídají"</li>
+    <li>Nachází krásu i v rozkladu — kontrast krásy a hnusu (Zdechlina)</li>
+    <li>Obrovský vliv na celou literární generaci moderny</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Květy zla</span><span class="work-chip">Zdechlina</span><span class="work-chip">Zodpovídání</span></div>
   </div>
+</div>
 
-  <div class="autor-detail bur">
-    <h3>Petr Bezruč (1867–1958)</h3>
-    <div class="meta">SOCIÁLNÍ POEZIE · bard slezského lidu</div>
-    <p style="font-size:.88rem">Vlastním jménem Vladimír Vašek. Expresivní styl, lašské nářečí. Protest proti sociálnímu a národnostnímu útlaku.</p>
-    <div class="dila"><span class="dilo-tag">Slezské písně</span><span class="dilo-tag">Maryčka Magdónova</span><span class="dilo-tag">Ostrava</span><span class="dilo-tag">Kantor Halfar</span></div>
+<div class="autor-card" style="--ac:var(--sym)">
+  <div class="autor-head">
+    <div class="autor-name">Arthur Rimbaud 🇫🇷</div>
+    <div class="autor-years">1854–1891</div>
+    <div class="autor-dirs"><span class="dir-pill">Symbolismus</span><span class="dir-pill">Prokletý básník</span></div>
   </div>
-
-  <div class="divider"></div>
-  <div style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">🌍 Světoví autoři</div>
-
-  <div class="autor-detail dek">
-    <h3>Oscar Wilde (1854–1900) 🇬🇧</h3>
-    <div class="meta">DEKADENCE · estetismus · dandy</div>
-    <p style="font-size:.88rem"><strong>Dandy</strong> = muž, který dbá o svůj zevnějšek a vystupování. <strong>Estetismus</strong> = umění pro umění, bez morálního poučení, pouze krása. Odsouzen za homosexualitu (2 roky vězení) → exil → změna jména.</p>
-    <div class="dila"><span class="dilo-tag">Obraz Doriana Graye</span><span class="dilo-tag">Jak je důležité mít Filipa</span><span class="dilo-tag">Balada o žaláři v Readingu</span></div>
+  <div class="autor-body"><ul>
+    <li>Básník jako <strong>„vidoucí" (voyant)</strong> — musí prožívat vše</li>
+    <li><strong>Opilý koráb</strong> = koráb (básník/duše) zbavený posádky (konvencí) — svoboda, chaos, vyčerpání</li>
+    <li>Přeložil <strong>Vítězslav Nezval</strong></li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Opilý koráb</span><span class="work-chip">(přeložil V. Nezval)</span></div>
   </div>
+</div>
 
-  <div class="autor-detail imp">
-    <h3>Paul Verlaine (1844–1896) 🇫🇷</h3>
-    <div class="meta">IMPRESIONISMUS · prokletý básník</div>
-    <p style="font-size:.88rem">„Hudba především!" — zvukomalebnost důležitější než přesný smysl. Zavedl termín prokletí básníci. Melodické, hudební verše evokující náladu.</p>
-    <div class="dila"><span class="dilo-tag">Romance beze slov</span><span class="dilo-tag">Saturnské básně</span><span class="dilo-tag">Podzimní píseň</span></div>
+<div class="autor-card" style="--ac:var(--civ)">
+  <div class="autor-head">
+    <div class="autor-name">Walt Whitman 🇺🇸</div>
+    <div class="autor-years">1819–1892</div>
+    <div class="autor-dirs"><span class="dir-pill">Civilismus</span><span class="dir-pill">Zakladatel amer. poezie</span></div>
   </div>
-
-  <div class="autor-detail sym">
-    <h3>Charles Baudelaire (1821–1867) 🇫🇷</h3>
-    <div class="meta">SYMBOLISMUS · prokletý básník</div>
-    <p style="font-size:.88rem">Otec moderní poezie. Synestézie — barvy, vůně a zvuky si „odpovídají". Nalézá krásu tam, kde ji nikdo nečeká (i v rozkladu).</p>
-    <div class="dila"><span class="dilo-tag">Květy zla</span><span class="dilo-tag">Zdechlina</span><span class="dilo-tag">Zodpovídání</span></div>
+  <div class="autor-body"><ul>
+    <li><strong>Volný verš</strong>, anafory (opakování na začátku veršů), katalogy (výčty)</li>
+    <li><strong>Panteismus</strong> — Bůh přítomen v každém atomu i stéblu trávy</li>
+    <li>Absolutní demokracie a rovnost všech lidí, ras i pohlaví</li>
+    <li><strong>Stébla trávy</strong> — celoživotní sbírka: z 12 básní narostla na téměř 400</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Stébla trávy</span><span class="work-chip">Zpěv o mně</span><span class="work-chip">O, kapitáne!</span></div>
   </div>
+</div>
 
-  <div class="autor-detail sym">
-    <h3>Arthur Rimbaud (1854–1891) 🇫🇷</h3>
-    <div class="meta">SYMBOLISMUS · prokletý básník</div>
-    <p style="font-size:.88rem">Básník jako „vidoucí" — musí prožívat vše, i demoralizaci smyslů. Opilý koráb = básník/duše osvobozená od konvencí.</p>
-    <div class="dila"><span class="dilo-tag">Opilý koráb</span><span class="dilo-tag">(překlad V. Nezval)</span></div>
+<div class="autor-card" style="--ac:var(--muted)">
+  <div class="autor-head">
+    <div class="autor-name">Guillaume Apollinaire 🇫🇷</div>
+    <div class="autor-years">1880–1918</div>
+    <div class="autor-dirs"><span class="dir-pill">Avantgarda</span><span class="dir-pill">Surrealismus</span><span class="dir-pill">Kaligramy</span></div>
   </div>
-
-  <div class="autor-detail civ">
-    <h3>Walt Whitman (1819–1892) 🇺🇸</h3>
-    <div class="meta">CIVILISMUS · zakladatel moderní americké poezie</div>
-    <p style="font-size:.88rem">Volný verš, anafory, katalogy (výčty). Panteismus — Bůh přítomen v každém atomu i stéblu trávy. Absolutní demokracie a rovnost.</p>
-    <div class="dila"><span class="dilo-tag">Stébla trávy</span><span class="dilo-tag">Zpěv o mně</span><span class="dilo-tag">O, kapitáne!</span></div>
+  <div class="autor-body"><ul>
+    <li>Jako první systematicky odstranil interpunkci z poezie</li>
+    <li><strong>Kaligramy</strong> = básně ve tvaru obrazu — propojení básnictví a výtvarného umění</li>
+    <li>Otec termínu <em>surrealismus</em>. Přítel Picassa. Zemřel na španělskou chřipku.</li>
+  </ul>
+  <div class="autor-works"><span class="work-chip">Kaligramy</span><span class="work-chip">Alkoholy</span><span class="work-chip">Pásmo</span></div>
   </div>
+</div>
+```
 
-  <div class="autor-detail" style="--c:var(--muted)">
-    <h3>Guillaume Apollinaire (1880–1918) 🇫🇷</h3>
-    <div class="meta">AVANTGARDA · surrealismus · kaligramy</div>
-    <p style="font-size:.88rem">Jako první odstranil interpunkci z poezie. Kaligramy = básně ve tvaru obrazu. Otec termínu <em>surrealismus</em>.</p>
-    <div class="dila"><span class="dilo-tag">Kaligramy</span><span class="dilo-tag">Alkoholy</span><span class="dilo-tag">Pásmo</span></div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════ POJMY -->
+
+<div id="basne" class="panel">
+  <div class="section-title">Ukázky <em>&amp; rozbory</em></div>
+  <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.5rem">Text básně vlevo, analýza vpravo — přesně jak potřebuješ u maturity.</p>
+
+  <div class="poem-block">
+    <div class="poem-header">
+      <div><div class="poem-title">Přetékající pohár</div><div class="poem-meta">František Gellner · Po nás ať přijde potopa! (1901) · buřiči</div></div>
+      <span class="poem-badge" style="background:rgba(196,168,90,.15);color:var(--bur)">Buřiči</span>
+    </div>
+    <div class="poem-cols">
+      <div class="poem-text-col"><div class="poem-verse">Já držím pohár ve své dlani.
+Je zpěněný a přetéká.
+Já držím pohár ve své dlani,
+jenž čeká na rty člověka.
+
+Jenž čeká, zdali víno jeho
+se do brázd vyschlých rozleje,
+na snivých květech v jiných světech
+zda zavěsí své krůpěje.
+
+Jenž čeká, zda se sehnou květy
+pod onou tíží ku zemi.
+Jenž čeká, zdali jiné světy
+rozzáří svými vůněmi.
+
+Já držím pohár ve své dlani,
+jenž čeká na rty člověka.
+Já držím pohár ve své dlani:
+své srdce, které přetéká.</div></div>
+<div class="poem-analysis">
+<div class="analysis-label">Jak číst tento text</div>
+<div class="a-item"><strong>Forma popěvku</strong><span>Střídavý rým ABAB, rytmické, zapamatovatelné — záměrně pro lid, ne pro elitu</span></div>
+<div class="a-item"><strong>Symbol pohár</strong><span>Pohár = srdce přetékající city; víno = emoce, touha, smyslnost; zároveň motiv alkoholu a bohémství</span></div>
+<div class="a-item"><strong>Anafora</strong><span>„Já držím pohár…” / „Jenž čeká…” — opakování zesiluje naléhavost a rytmus</span></div>
+<div class="a-item"><strong>Závěrečný zvrat</strong><span>Pohár = vlastní srdce — ironie a cynismus se mění v upřímnost</span></div>
+<div class="a-item"><strong>Skepticismus</strong><span>„Po nás ať přijde potopa” = absolutní rezignace na budoucnost, vzdor měšťácké morálce</span></div>
+</div>
+</div>
+
+  </div>
+
+  <div class="poem-block">
+    <div class="poem-header">
+      <div><div class="poem-title">Krysař — závěrečná pasáž</div><div class="poem-meta">Viktor Dyk · novela (1915) · symbolismus · buřiči</div></div>
+      <span class="poem-badge" style="background:rgba(176,122,176,.15);color:var(--dek)">Symbolismus</span>
+    </div>
+    <div class="poem-cols">
+      <div class="poem-text-col"><div class="poem-verse">„Krysař pískal. Ale nebyl to již onen tlumený a váhavý pískot, jímž vábíval krysy. Byl to plný, mocný zvuk, v němž zněly všechny bolesti a všechny naděje, všechna opovržení i všechna láska země. Zvuk ten rostl a sílil, naplňoval ulice a domy, pronikal stěnami a srdcem. A Hammeln šlo za ním. Šli všichni, staří i mladí, muži i ženy. Šli jako ve snu…"</div></div>
+      <div class="poem-analysis">
+        <div class="analysis-label">Jak číst tento text</div>
+        <div class="a-item"><strong>Krysař = symbol</strong><span>Osamělý jedinec trestající zkažené město — symbol osudovosti a spravedlivého trestu</span></div>
+        <div class="a-item"><strong>Píšťala = umění</strong><span>Hudba má moc odvést lidi od reality — symbolismus: umění jako most k jinému světu</span></div>
+        <div class="a-item"><strong>Antitéze</strong><span>„bolesti a naděje" / „opovržení i láska" — protikladné páry zesilují filozofickou hloubku</span></div>
+        <div class="a-item"><strong>Úsečná próza</strong><span>Krátké věty gradují napětí — rytmus buduje neúprosnost finální scény</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="poem-block">
+    <div class="poem-header">
+      <div><div class="poem-title">Splav — úvodní báseň</div><div class="poem-meta">Fráňa Šrámek · sbírka Splav (1916) · impresionismus · vitalismus</div></div>
+      <span class="poem-badge" style="background:rgba(212,133,90,.15);color:var(--imp)">Impresionismus</span>
+    </div>
+    <div class="poem-cols">
+      <div class="poem-text-col"><div class="poem-verse">Trápím se, trápím, myslím si,
+kde bych tě nejraděj potkal.
+Ulice střídám, parky a nábřeží,
+bojím se krásných lží.
+
+Bojím se lesa. V poledním lese
+kdo miluje, srdce své neunese.
+Na můj práh kdyby jsi vstoupila,
+snad bys mne tím zabila.
+
+Chtěl bych tě potkati v lukách.
+V lukách je vlání
+na všechny strany, pokorné odevzdávání.
+V lukách je nejprostší života stůl,
+rozlomíš chleba, podáš ženě půl…</div></div>
+<div class="poem-analysis">
+<div class="analysis-label">Jak číst tento text</div>
+<div class="a-item"><strong>Impresionismus</strong><span>Útok na smysly — vidíme, slyšíme i cítíme; krajina je nositelem nálady</span></div>
+<div class="a-item"><strong>Vitalismus</strong><span>Oslava lásky, tělesnosti a erotického napětí — luky = bezpečné místo pro intimitu</span></div>
+<div class="a-item"><strong>Kontrast prostorů</strong><span>Město = přetvářka; les = nebezpečná vášeň; luky = harmonická, přirozená láska</span></div>
+<div class="a-item"><strong>Melodičnost</strong><span>Šrámkův verš je hudební a jemný — na rozdíl od Gellnerovy syrovosti</span></div>
+</div>
+</div>
+
+  </div>
+
+  <div class="poem-block">
+    <div class="poem-header">
+      <div><div class="poem-title">Podzimní píseň (Chanson d'automne)</div><div class="poem-meta">Paul Verlaine · Saturnské básně (1866) · impresionismus · prokletý básník</div></div>
+      <span class="poem-badge" style="background:rgba(212,133,90,.15);color:var(--imp)">Impresionismus</span>
+    </div>
+    <div class="poem-cols">
+      <div class="poem-text-col"><div class="poem-verse">Ó podzime,
+tak dlouze tvé
+housle lkají,
+mou duši tou
+hrou unylou
+utýrají.
+
+Bledý jsem stál
+a vzpomínal,
+přešel čas,
+teď v pláči jsem,
+když uslyším
+hodin hlas.
+
+A kráčel jsem
+ve větru zlém,
+jenž mě nes
+jak ze zahrad
+list, který zvad
+a pak kles.</div></div>
+<div class="poem-analysis">
+<div class="analysis-label">Jak číst tento text</div>
+<div class="a-item"><strong>Impresionismus</strong><span>Verlaine nepopisuje podzim — evokuje pocity z něj. „Hudba především!”</span></div>
+<div class="a-item"><strong>Hudebnost</strong><span>Aliterace, assonance, krátké verše — báseň má znít jako vzlykot a housle</span></div>
+<div class="a-item"><strong>Symbol</strong><span>Padající listí = člověk unášený osudem bez vlastní vůle — pasivita, odevzdanost</span></div>
+<div class="a-item"><strong>Forma</strong><span>Velmi krátké (2–3slabičné) verše, monotónní rytmus — evokuje pomalý podzimní čas</span></div>
+<div class="a-item"><strong>Náladová poezie</strong><span>Vrcholný příklad fr. impresionismu — báseň jako hudební skladba</span></div>
+</div>
+</div>
+
+  </div>
+
+  <div class="poem-block">
+    <div class="poem-header">
+      <div><div class="poem-title">Ostrava (ukázka)</div><div class="poem-meta">Petr Bezruč · Slezské písně (1909) · sociální poezie · lašské nářečí</div></div>
+      <span class="poem-badge" style="background:rgba(196,168,90,.15);color:var(--bur)">Sociální poezie</span>
+    </div>
+    <div class="poem-cols">
+      <div class="poem-text-col"><div class="poem-verse">Sto roků v šachtě žil, mlčel jsem,
+sto roků kopal jsem uhlí,
+za sto let v rameni bezmasém
+svaly mi v železo ztuhly.
+
+Uhelný prach sed mi do očí,
+rubíny ze rtů mi uhly,
+ze vlasů, z vousů a z obočí
+visí mi rampouchy uhlí.
+
+Chléb s uhlím beru si do práce,
+z roboty jdu na robotu,
+při Dunaji strmí paláce
+z krve mé a z mého potu.</div></div>
+<div class="poem-analysis">
+<div class="analysis-label">Jak číst tento text</div>
+<div class="a-item"><strong>Kolektivní hrdina</strong><span>Mluvčí není Bezruč — mluví za celé generace slezských horníků; „já” = celý lid</span></div>
+<div class="a-item"><strong>Hyperbola</strong><span>„Sto roků žil jsem” = nekonečné utrpení generací; zesiluje beznaděj</span></div>
+<div class="a-item"><strong>Sociální balada</strong><span>Paláce z potu a krve = přímá obžaloba vládnoucí třídy a Vídně</span></div>
+<div class="a-item"><strong>Střídavý rým ABAB</strong><span>Jednoduchá forma zdůrazňuje monotónnost robotácké existence</span></div>
+<div class="a-item"><strong>Drsný jazyk</strong><span>Bez příkras, syrový, útočný; lašismy dodávají autenticitu</span></div>
+</div>
+</div>
+
+  </div>
+
+</div>
 
 <div id="pojmy" class="panel">
   <div class="section-title">Klíčové <em>pojmy</em></div>
@@ -696,6 +1124,21 @@ margin-bottom: 1.5rem;
 <div id="maturita" class="panel">
   <div class="section-title">Maturitní <em>minimum</em></div>
 
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1rem;margin-bottom:1rem">
+    <div style="font-size:.72rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">✅ Co mám zvládnuté?</div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Umím definovat všechny 4 literární směry + buřiče</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Znám rozdíl mezi impresionismem a symbolismem</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Vím, co je synestézie, a dám příklad (Baudelaire)</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Umím říct, co je aforismus a kdo ho používal (Wilde)</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Znám 3 klíčové body anarchistických buřičů</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Umím rozebrat Gellnerovu báseň (forma, symbol, téma)</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Znám příběh Obraz Doriana Graye + klíčové pojmy</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Umím vysvětlit symbol Opilého korábu (Rimbaud)</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Vím, kdo jsou prokletí básníci a proč tak říkáme</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Znám Bezručovu sbírku a básně k rozboru</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Umím říct, co je panteismus + kdo ho zastával</div></div>
+    <div class="check-item" onclick="tick(this)"><div class="check-box"></div><div class="check-label">Vím, kdy a čím je Moderní revue důležitá</div></div>
+  </div>
   <div class="card" style="margin-bottom:1rem;border-color:var(--accent)">
     <h3>⚡ Proč únik od reality?</h3>
     <p>Nespokojenost s realitou — rychlý rozvoj techniky, ztráta hodnot, sociální napětí, spory o kolonie, Nietzscheův nihilismus. Umělci hledali smysl v symbolech, snech a kráse.</p>
@@ -834,9 +1277,47 @@ margin-bottom: 1.5rem;
   </div>
 </div>
 
+<div id="flashcard" class="panel">
+  <div class="section-title">Flashkarty — <em>pojmy</em></div>
+  <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.5rem">Klikni na kartu pro otočení. Přední strana = pojem, zadní = definice + příklad.</p>
+  <div class="flash-wrap">
+    <div class="flash-count" id="fc-count">Karta 1 / 15</div>
+    <div class="flash-card" id="fc" onclick="fcFlip()">
+      <div class="flash-inner">
+        <div class="flash-front">
+          <div class="flash-hint">Pojem — klikni pro otočení</div>
+          <div class="flash-term" id="fc-term">aforismus</div>
+        </div>
+        <div class="flash-back">
+          <div class="flash-hint">Definice</div>
+          <div class="flash-def" id="fc-def">Krátký, výstižný, trefný výrok — myšlenka v jedné větě.</div>
+          <div class="flash-ex" id="fc-ex">↳ Wilde: „Jediný způsob, jak se zbavit pokušení, je vzdát se mu."</div>
+        </div>
+      </div>
+    </div>
+    <div class="flash-tip">👆 Klikni na kartu pro otočení</div>
+    <div class="flash-dots" id="fc-dots"></div>
+    <div class="flash-nav">
+      <button class="flash-btn" onclick="fcPrev()">← Předchozí</button>
+      <button class="flash-btn" onclick="fcShuffle()">🔀 Zamíchat</button>
+      <button class="flash-btn" onclick="fcNext()">Další →</button>
+    </div>
+  </div>
+</div>
+
+<div id="kviz" class="panel">
+  <div class="section-title">Kvíz — <em>ověř znalosti</em></div>
+  <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.5rem">12 otázek ze všech témat. Po odpovědi uvidíš vysvětlení.</p>
+  <div class="quiz-wrap">
+    <div class="qprog" id="qprog"></div>
+    <div id="qarea"></div>
+  </div>
+</div>
+
 </main>
 
 <script>
+// ─── TABS ─────────────────────────────────────────────
 function showPanel(id, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -844,11 +1325,103 @@ function showPanel(id, btn) {
   btn.classList.add('active');
 }
 
+// ─── ACCORDION ────────────────────────────────────────
 function toggleSmer(header) {
   const card = header.parentElement;
   card.classList.toggle('open');
 }
-</script>
 
-</body>
-</html>
+// ─── PROGRESS ─────────────────────────────────────────
+let checked = 0;
+const TOTAL = 12;
+function tick(el) {
+  el.classList.toggle('ticked');
+  el.querySelector('.check-box').textContent = el.classList.contains('ticked') ? '✓' : '';
+  checked = document.querySelectorAll('.check-item.ticked').length;
+  const pct = Math.round(checked / TOTAL * 100);
+  document.getElementById('pf').style.width = pct + '%';
+  document.getElementById('plabel').textContent = pct + ' %';
+}
+
+// ─── FLASHCARDS ───────────────────────────────────────
+const fcData = [
+  { t:'aforismus', d:'Krátký, výstižný, trefný výrok — myšlenka v jedné větě.', e:'↳ Wilde: „Jediný způsob, jak se zbavit pokušení, je vzdát se mu."' },
+  { t:'paradox', d:'Spojení zdánlivě si odporujících výrazů, které dohromady dávají smysl.', e:'↳ Wilde: „Nic nemůže vyléčit duši, kromě smyslů — a smysly, kromě duše."' },
+  { t:'synestézie', d:'Míchání vjemů různých smyslů — barvy „zní", zvuky „voní", vůně mají barvu.', e:'↳ Baudelaire: „vůně, barvy, zvuky si odpovídají" (Zodpovídání)' },
+  { t:'panteismus', d:'Víra, že Bůh (božská energie) je přítomen ve všem — v trávě, atomu, člověku.', e:'↳ Walt Whitman, S. K. Neumann' },
+  { t:'estetismus', d:'Umění pro umění — nemá morálně poučovat, jediným cílem je krása.', e:'↳ Oscar Wilde' },
+  { t:'dandy', d:'Muž dbající o zevnějšek, vystupování, nonkonformní, nezávislý, sebejistý.', e:'↳ Oscar Wilde — sám sebe stylizoval do této role' },
+  { t:'antimilitarismus', d:'Odpor k válce, vojně a násilí jako nástroji státní moci.', e:'↳ Fráňa Šrámek — dvakrát vězněn za protiválečné básně' },
+  { t:'vitalismus', d:'Oslava života, mládí, přírody, erotiky a radosti z pouhé existence.', e:'↳ Šrámek — Splav; Neumann — Kniha lesů, vod a strání' },
+  { t:'kaligram', d:'Báseň uspořádaná do tvaru obrazu — propojení básnictví a výtvarného umění.', e:'↳ Apollinaire — báseň ve tvaru Eiffelovky' },
+  { t:'anafora', d:'Opakování stejného slova na začátku po sobě jdoucích veršů — důraz, rytmus.', e:'↳ Whitman — výčty v Stéblech trávy; Gellner — „Já držím pohár…"' },
+  { t:'hedonismus', d:'Touha po věčném mládí, potěšení a smyslových zážitcích jako nejvyšší hodnotě.', e:'↳ Lord Henry v Obrazu Doriana Graye' },
+  { t:'nihilismus', d:'Svět nemá žádný vyšší smysl, autoritu ani cíl — popření tradičních hodnot.', e:'↳ Nietzsche: „Bůh je mrtev." → základ pro dekadenci i buřičství' },
+  { t:'fin de siècle', d:'„Konec století" — pocit napětí, ztráty jistot a hledání nových hodnot.', e:'↳ celkový kontext literární moderny 1890–1914' },
+  { t:'pásmo', d:'Polytematická báseň — proud dojmů, vzpomínek a asociací tvořící jeden celek.', e:'↳ Apollinaire — Alkoholy (úvodní báseň Pásmo)' },
+  { t:'voyant', d:'„Vidoucí" — Rimbaudův koncept básníka, který musí prožívat vše, aby dosáhl absolutního poznání.', e:'↳ Arthur Rimbaud — Opilý koráb' },
+];
+let fi = 0, fo = fcData.map((_,i)=>i);
+function fcRender() {
+  document.getElementById('fc').classList.remove('flipped');
+  const d = fcData[fo[fi]];
+  document.getElementById('fc-term').textContent = d.t;
+  document.getElementById('fc-def').textContent = d.d;
+  document.getElementById('fc-ex').textContent = d.e;
+  document.getElementById('fc-count').textContent = 'Karta '+(fi+1)+' / '+fcData.length;
+  const dots = document.getElementById('fc-dots');
+  dots.innerHTML = '';
+  fo.forEach((_,i)=>{ const el=document.createElement('div'); el.className='fdot'+(i<fi?' seen':'')+(i===fi?' cur':''); dots.appendChild(el); });
+}
+function fcFlip() { document.getElementById('fc').classList.toggle('flipped'); }
+function fcPrev() { if(fi>0){fi--;fcRender();} }
+function fcNext() { if(fi<fcData.length-1){fi++;fcRender();} }
+function fcShuffle() {
+  for(let i=fo.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[fo[i],fo[j]]=[fo[j],fo[i]];}
+  fi=0; fcRender();
+}
+fcRender();
+
+// ─── QUIZ ─────────────────────────────────────────────
+const qData = [
+  { q:'Co je hlavním znakem impresionismu v literatuře?', o:['Zachycení prchavých okamžiků a smyslových vjemů','Oslava techniky a průmyslu','Vyjádření pomocí symbolů a snů','Pesimismus a zájem o smrt'], c:0, e:'Impresionismus zachycuje prchavé okamžiky, nálady a smyslové vjemy — důraz je na pocit z reality, ne na její přesný popis.' },
+  { q:'Kdo zavedl termín „prokletí básníci" (poètes maudits)?', o:['Charles Baudelaire','Arthur Rimbaud','Paul Verlaine','Guillaume Apollinaire'], c:2, e:'Paul Verlaine zavedl tento termín ve stejnojmenné eseji (1884). Označoval básníky na okraji společnosti — nepochopené, žijící v chudobě a konfliktu s morálkou.' },
+  { q:'Co symbolizuje koráb v Rimbaudově básni Opilý koráb?', o:['Lodní dopravu v 19. století','Básníka/duši osvobozenou od konvencí','Touhu po cestování','Dekadentní způsob života'], c:1, e:'Koráb = básník (duše) zbavený posádky (= společenských konvencí). Pluje světem na vlastní pěst — svoboda, chaos, fantazie, ale nakonec i vyčerpání.' },
+  { q:'Jaký filozofický pojem je klíčový pro civilismus Whitmana a Neumanna?', o:['Nihilismus','Estetismus','Panteismus','Dandyismus'], c:2, e:'Panteismus — víra, že Bůh je přítomen ve všem: v trávě, atomu, stroji i člověku. Whitman i Neumann proto oslavují přírodu i techniku jako projevy božského.' },
+  { q:'Petr Bezruč byl vlastním jménem:', o:['Vladimír Vašek','František Gellner','Stanislav Neumann','Antonín Sova'], c:0, e:'Bezruč je pseudonym — vlastní jméno básníka bylo Vladimír Vašek. Svou identitu dlouho tajil, pracoval jako poštovní úředník v Brně.' },
+  { q:'Synestézie v poezii znamená:', o:['Opakování slov na začátku verše','Míchání vjemů různých smyslů','Báseň ve tvaru obrazu','Odmítání interpunkce'], c:1, e:'Synestézie = míchání vjemů různých smyslů — barvy „zní", zvuky „voní". Typické pro Baudelaira: „vůně, barvy, zvuky si odpovídají."' },
+  { q:'Co je estetismus podle Oscara Wilda?', o:['Umění musí morálně poučovat','Umění pro umění — cílem je jen krása','Oslava přírody a techniky','Odpor k válce a násilí'], c:1, e:'Estetismus = umění pro umění. Wilde odmítal, že by umění mělo sloužit morálce nebo výchově — jedinou hodnotou je estetická krása.' },
+  { q:'Která sbírka je považována za vrchol českého vitalismu?', o:['Tajemné dálky (Březina)','Splav (Šrámek)','Slezské písně (Bezruč)','Nové zpěvy (Neumann)'], c:1, e:'Splav (1916) od Fráni Šrámka = vrchol českého vitalismu — oslava lásky, tělesnosti, erotického napětí a radosti ze života.' },
+  { q:'Co je kaligram?', o:['Typ básně bez rýmu','Báseň uspořádaná do tvaru obrazu','Literární časopis','Druh metafory'], c:1, e:'Kaligram = báseň uspořádaná do tvaru obrazu. Propojuje básnictví a výtvarné umění. Nejvýznamnější autor: Guillaume Apollinaire (Eiffelovka).' },
+  { q:'Jak Krysař potrestá zkažené město Hammeln?', o:['Zapálí ho','Všechny zabije mečem','Odehraje a odvede všechny do záhuby','Odejde a nechá ho svému osudu'], c:2, e:'Krysař = symbol osamělého jedince. Odehraje na píšťale a odvede všechny obyvatele Hammelnu do propasti — osamělý trest za kolektivní zkaženost.' },
+  { q:'Kdo zavedl termín „surrealismus"?', o:['Salvador Dalí','Pablo Picasso','Guillaume Apollinaire','Arthur Rimbaud'], c:2, e:'Apollinaire poprvé použil slovo „surrealismus" v předmluvě ke hře Prsy Tiresiovy (1917). Označoval jím umění překračující realitu do snů a podvědomí.' },
+  { q:'Jaký je rozdíl mezi Knihou lesů a Novými zpěvy (Neumann)?', o:['Nejsou žádné rozdíly','Kniha lesů = příroda/panteismus, Nové zpěvy = technika/civilismus','Nové zpěvy jsou starší','Kniha lesů je próza'], c:1, e:'Kniha lesů (1914) = přírodní lyrika, panteismus, vitalismus. Nové zpěvy (1918) = civilismus, oslava strojů, drátů a moderního města. Odpovídá Neumannovu ideovému vývoji.' },
+];
+let qi=0, qs=0, qa=false;
+function qRender() {
+  const p=document.getElementById('qprog'); p.innerHTML='';
+  qData.forEach((_,i)=>{ const d=document.createElement('div'); d.className='qd'+(i<qi?' done':'')+(i===qi?' cur':''); p.appendChild(d); });
+  const a=document.getElementById('qarea');
+  if(qi>=qData.length) {
+    const pct=Math.round(qs/qData.length*100);
+    const msg=pct>=90?'🏆 Výborně! Na jedničku!':pct>=70?'👍 Skvělá práce! Ještě trochu doladit.':pct>=50?'📚 Základ máš — projdi slabší témata.':'💪 Nevzdávej to! Zkus znovu po zopakování.';
+    a.innerHTML='<div class="qresult qcard"><div class="big">'+qs+' / '+qData.length+'</div><div class="sub">'+pct+' % správně</div><div class="msg">'+msg+'</div><button class="btn btn-acc" onclick="qRestart()">🔄 Zkusit znovu</button></div>';
+    return;
+  }
+  const q=qData[qi]; qa=false;
+  a.innerHTML='<div class="qcard"><div class="qnum">Otázka '+(qi+1)+' z '+qData.length+'</div><div class="qq">'+q.q+'</div><div class="qopts">'+q.o.map((o,i)=>'<button class="qopt" onclick="qAns('+i+')">'+o+'</button>').join('')+'</div><div class="qfb" id="qfb"></div></div><div class="qnav"><div class="qscore">✅ '+qs+' správně</div><button class="btn" id="qnext" onclick="qNext()" disabled>Další →</button></div>';
+}
+function qAns(i) {
+  if(qa) return; qa=true;
+  const q=qData[qi], opts=document.querySelectorAll('.qopt');
+  opts.forEach(o=>o.disabled=true);
+  opts[q.c].classList.add('correct');
+  const fb=document.getElementById('qfb'); fb.classList.add('show');
+  if(i===q.c){ qs++; fb.classList.add('ok'); fb.textContent='✓ Správně! '+q.e; }
+  else { opts[i].classList.add('wrong'); fb.classList.add('fail'); fb.textContent='✗ Správná odpověď: '+q.o[q.c]+' — '+q.e; }
+  document.getElementById('qnext').disabled=false;
+}
+function qNext() { qi++; qRender(); }
+function qRestart() { qi=0; qs=0; qRender(); }
+qRender();
+</script>
